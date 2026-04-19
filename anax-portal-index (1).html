@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ANAX Capital — Client Portal</title>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#070B14;--bg-e:#0D1321;--surface:#141C2E;--surface-r:#1A2340;
+  --border:rgba(255,255,255,0.07);--border-a:rgba(68,208,196,0.28);
+  --grad:linear-gradient(90deg,#3563DF 0%,#44D0C4 100%);
+  --grad-135:linear-gradient(135deg,#3563DF 0%,#44D0C4 100%);
+  --blue:#3563DF;--teal:#44D0C4;--up:#10B981;--down:#EF4444;--warn:#F59E0B;
+  --txt:#FFFFFF;--txt2:#9CA3AF;--txt3:#6B7280;--txt4:#4B5563;
+  --fd:'Plus Jakarta Sans',sans-serif;--fb:'Inter',sans-serif;--fm:'JetBrains Mono',monospace;
+  --sidebar-w:220px;--topbar-h:52px;--t:160ms ease-out;--r:8px;
+}
+html,body,#root{height:100%}
+body{background:var(--bg);color:var(--txt);font-family:var(--fb);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow:hidden}
+.portal{display:flex;height:100vh;overflow:hidden}
+.sidebar{width:var(--sidebar-w);background:var(--bg-e);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto;overflow-x:hidden}
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.topbar{height:var(--topbar-h);background:var(--bg-e);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 20px;flex-shrink:0}
+.content{flex:1;overflow-y:auto;padding:20px;background:var(--bg)}
+.sidebar-logo{padding:14px 16px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.sidebar-logo-icon{width:30px;height:30px;background:var(--grad);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sidebar-logo-text{font-family:var(--fd);font-size:14px;font-weight:700;color:var(--txt)}
+.sidebar-logo-text em{color:var(--teal);font-style:normal}
+.sidebar-user{padding:12px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
+.sidebar-avatar{width:30px;height:30px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0}
+.sidebar-username{font-size:12px;font-weight:600;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sidebar-id{font-size:10px;color:var(--txt3);font-family:var(--fm)}
+.nav-section{padding:4px 0}
+.nav-section-label{font-size:10px;font-weight:600;color:var(--txt4);text-transform:uppercase;letter-spacing:.08em;padding:8px 14px 3px}
+.nav-item{display:flex;align-items:center;gap:9px;padding:7px 14px;cursor:pointer;transition:all var(--t);color:var(--txt2);font-size:12px;font-weight:500;position:relative}
+.nav-item:hover{background:rgba(255,255,255,0.04);color:var(--txt)}
+.nav-item.active{background:rgba(53,99,223,0.12);color:var(--teal);border-right:2px solid var(--teal)}
+.nav-item svg{flex-shrink:0;opacity:.7}
+.nav-item.active svg{opacity:1}
+.nav-badge{margin-left:auto;background:var(--grad);color:#fff;font-size:9px;font-weight:700;padding:1px 5px;border-radius:999px}
+.nav-sub{padding-left:36px}
+.nav-sub .nav-item{font-size:11px;font-weight:400;padding:5px 10px 5px 0}
+.topbar-left{display:flex;align-items:center;gap:8px}
+.topbar-title{font-family:var(--fd);font-size:15px;font-weight:600;color:var(--txt)}
+.topbar-breadcrumb{font-size:11px;color:var(--txt3)}
+.topbar-right{display:flex;align-items:center;gap:6px}
+.topbar-btn{display:flex;align-items:center;gap:5px;padding:5px 12px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;border:none;font-family:var(--fb);transition:all var(--t)}
+.tb-primary{background:var(--grad);color:#fff}
+.tb-primary:hover{opacity:.9}
+.tb-ghost{background:transparent;color:var(--txt2);border:1px solid var(--border)}
+.tb-ghost:hover{background:rgba(255,255,255,.04);color:var(--txt)}
+.tb-icon{background:transparent;border:none;color:var(--txt3);cursor:pointer;padding:5px;border-radius:6px;transition:all var(--t);display:flex;align-items:center;justify-content:center}
+.tb-icon:hover{background:rgba(255,255,255,.06);color:var(--txt)}
+.alert-banner{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:var(--r);margin-bottom:16px;font-size:12px}
+.alert-warn{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);color:#FCD34D}
+.alert-info{background:rgba(53,99,223,.1);border:1px solid rgba(53,99,223,.25);color:#93C5FD}
+.alert-success{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);color:#6EE7B7}
+.alert-link{color:inherit;font-weight:600;text-decoration:underline;cursor:pointer}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r)}
+.card-hover:hover{border-color:var(--border-a)}
+.card-p{padding:18px}
+.card-header{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.card-title{font-family:var(--fd);font-size:13px;font-weight:600;color:var(--txt)}
+.step-list{display:flex;flex-direction:column;gap:0}
+.step-item{display:flex;align-items:flex-start;gap:14px;padding:14px 18px;border-bottom:1px solid var(--border);position:relative;transition:background var(--t);cursor:pointer}
+.step-item:last-child{border-bottom:none}
+.step-item:hover{background:rgba(255,255,255,.02)}
+.step-item.active-step{background:rgba(53,99,223,.06)}
+.step-num{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px}
+.step-done{background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.4);color:#10B981}
+.step-current{background:var(--grad);color:#fff;box-shadow:0 0 10px rgba(53,99,223,.3)}
+.step-pending{background:var(--surface-r);border:1px solid var(--border);color:var(--txt4)}
+.step-content{flex:1}
+.step-title{font-size:13px;font-weight:600;color:var(--txt);margin-bottom:2px}
+.step-desc{font-size:11px;color:var(--txt3);line-height:1.5}
+.step-cta{margin-top:8px}
+.step-arrow{color:var(--txt4);margin-top:5px;flex-shrink:0}
+.progress-bar{height:4px;background:var(--surface-r);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;background:var(--grad);border-radius:2px;transition:width .4s ease}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px}
+.stat-val{font-family:var(--fd);font-size:18px;font-weight:700;color:var(--txt)}
+.stat-lbl{font-size:10px;color:var(--txt3);margin-top:1px}
+.stat-chg{font-family:var(--fm);font-size:10px;margin-top:4px}
+.btn{display:inline-flex;align-items:center;gap:5px;border:none;cursor:pointer;font-family:var(--fb);font-weight:600;transition:all var(--t);border-radius:6px;text-decoration:none}
+.btn-sm{padding:5px 12px;font-size:11px}
+.btn-md{padding:8px 18px;font-size:12px}
+.btn-lg{padding:11px 24px;font-size:13px}
+.btn-primary{background:var(--grad);color:#fff}
+.btn-primary:hover{opacity:.9;transform:translateY(-1px)}
+.btn-teal{background:rgba(68,208,196,.12);color:var(--teal);border:1px solid rgba(68,208,196,.3)}
+.btn-teal:hover{background:rgba(68,208,196,.2)}
+.btn-ghost{background:transparent;color:var(--txt2);border:1px solid var(--border)}
+.btn-ghost:hover{background:rgba(255,255,255,.04);color:var(--txt)}
+.btn-danger{background:rgba(239,68,68,.1);color:var(--down);border:1px solid rgba(239,68,68,.25)}
+.btn-success{background:rgba(16,185,129,.1);color:var(--up);border:1px solid rgba(16,185,129,.25)}
+.btn-full{width:100%;justify-content:center}
+.field{margin-bottom:12px}
+.field-label{font-size:11px;font-weight:500;color:var(--txt2);margin-bottom:4px}
+.input{background:var(--bg-e);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:8px 11px;font-family:var(--fb);font-size:12px;color:var(--txt);outline:none;width:100%;transition:border-color var(--t)}
+.input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(68,208,196,.1)}
+.input::placeholder{color:var(--txt4)}
+.select{background:var(--bg-e);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:8px 11px;font-family:var(--fb);font-size:12px;color:var(--txt);outline:none;width:100%;appearance:none;cursor:pointer}
+.tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:16px}
+.tab{padding:9px 16px;font-size:12px;font-weight:500;color:var(--txt3);cursor:pointer;border-bottom:2px solid transparent;transition:all var(--t);margin-bottom:-1px}
+.tab:hover{color:var(--txt)}
+.tab.active{color:var(--teal);border-bottom-color:var(--teal)}
+.data-table{width:100%;border-collapse:collapse}
+.data-table th{font-size:10px;color:var(--txt4);font-weight:500;text-align:left;padding:8px 12px;border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:.05em}
+.data-table td{padding:9px 12px;font-size:12px;color:var(--txt2);border-bottom:1px solid rgba(255,255,255,.03)}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:rgba(255,255,255,.02)}
+.badge{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:999px;font-size:10px;font-weight:500}
+.badge-success{background:rgba(16,185,129,.12);color:#10B981;border:1px solid rgba(16,185,129,.25)}
+.badge-warn{background:rgba(245,158,11,.12);color:#F59E0B;border:1px solid rgba(245,158,11,.25)}
+.badge-error{background:rgba(239,68,68,.1);color:var(--down);border:1px solid rgba(239,68,68,.2)}
+.badge-info{background:rgba(53,99,223,.12);color:#93C5FD;border:1px solid rgba(53,99,223,.25)}
+.badge-neutral{background:rgba(255,255,255,.06);color:var(--txt3);border:1px solid var(--border)}
+.dl-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.dl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:22px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;transition:border-color var(--t);cursor:pointer}
+.dl-card:hover{border-color:var(--border-a)}
+.dl-icon{width:52px;height:52px;border-radius:12px;background:var(--surface-r);display:flex;align-items:center;justify-content:center}
+.acct-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px;position:relative;overflow:hidden}
+.acct-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad)}
+.acct-type{font-size:10px;font-weight:600;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px}
+.acct-num{font-family:var(--fm);font-size:12px;color:var(--txt3);margin-bottom:10px}
+.acct-balance{font-family:var(--fd);font-size:26px;font-weight:700;color:var(--txt)}
+.stepper{display:flex;align-items:center;gap:0;margin-bottom:22px}
+.stepper-step{display:flex;align-items:center;gap:6px}
+.stepper-circle{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.sc-done{background:var(--up);color:#fff}
+.sc-active{background:var(--grad);color:#fff}
+.sc-pending{background:var(--surface-r);border:1px solid var(--border);color:var(--txt4)}
+.stepper-label{font-size:11px;font-weight:500;color:var(--txt2)}
+.stepper-label.active{color:var(--teal)}
+.stepper-line{flex:1;height:1px;background:var(--border);min-width:16px}
+.info-row{display:flex;align-items:center;padding:9px 0;border-bottom:1px solid var(--border)}
+.info-row:last-child{border-bottom:none}
+.info-label{font-size:11px;color:var(--txt3);width:160px;flex-shrink:0}
+.info-value{font-size:12px;color:var(--txt);flex:1}
+.info-action{margin-left:auto}
+.empty{text-align:center;padding:40px 20px}
+.empty-icon{width:44px;height:44px;margin:0 auto 10px;opacity:.3}
+.empty-title{font-size:13px;font-weight:600;color:var(--txt2);margin-bottom:4px}
+.empty-desc{font-size:11px;color:var(--txt4)}
+.tv-ticker-wrap{background:var(--surface);border-bottom:1px solid var(--border);overflow:hidden;height:44px}
+.upload-drop{border:2px dashed rgba(255,255,255,.1);border-radius:var(--r);padding:28px;text-align:center;cursor:pointer;transition:border-color var(--t)}
+.upload-drop:hover{border-color:rgba(68,208,196,.35)}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.font-mono{font-family:var(--fm)}
+.grad-text{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:2px}
+::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.18)}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useEffect, useRef } = React;
+
+const STEPS = [
+  { num:1, id:'email', status:'done', title:'Email Verified', desc:'Your email address has been confirmed successfully.', screen:null },
+  { num:2, id:'kyc', status:'current', title:'Verify Your Identity (KYC)', desc:'Complete identity verification via Sumsub to unlock full account access.', screen:'profile/kyc', cta:'Start Verification' },
+  { num:3, id:'account', status:'pending', title:'Open a Trading Account', desc:'Open a Live or Demo MT5 account to begin trading across all instruments.', screen:'accounts/live', cta:'Open Account' },
+  { num:4, id:'deposit', status:'pending', title:'Fund Your Account', desc:'Deposit funds via bank transfer or other available payment methods.', screen:'funds/deposit', cta:'Deposit Funds' },
+  { num:5, id:'trade', status:'pending', title:'Download MT5 & Start Trading', desc:'Download MetaTrader 5 on any device and place your first trade.', screen:'downloads', cta:'Download MT5' },
+];
+
+const SCREEN_TITLES = {
+  'dashboard':'Dashboard','accounts/overview':'Accounts Overview','accounts/demo':'Open Demo Account',
+  'accounts/live':'Open Live Account','funds/deposit':'Deposit Funds','funds/withdraw':'Withdraw Funds',
+  'funds/transfer':'Transfer Funds','funds/history':'Transactions History','funds/payment-details':'Payment Details',
+  'profile/info':'Profile','profile/documents':'Additional Documents','profile/kyc':'Verify Now',
+  'profile/agreements':'My Agreements','profile/messages':'Messages','profile/helpdesk':'Help Desk',
+  'profile/2fa':'Two-Factor Authentication','profile/email':'Email Verification','downloads':'Downloads','calendar':'Economic Calendar',
+};
+
+const NAV = [
+  { id:'dashboard', label:'Dashboard', icon:'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z M9 22V12h6v10' },
+  { id:'accounts', label:'Accounts', icon:'M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z', children:[
+    { id:'accounts/overview', label:'Overview' },
+    { id:'accounts/live', label:'Open Live Account' },
+    { id:'accounts/demo', label:'Open Demo Account' },
+  ]},
+  { id:'funds', label:'Funds', icon:'M12 1v22 M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6', children:[
+    { id:'funds/deposit', label:'Deposit Funds' },
+    { id:'funds/withdraw', label:'Withdraw Funds' },
+    { id:'funds/transfer', label:'Transfer Funds' },
+    { id:'funds/history', label:'Transaction History' },
+  ]},
+  { id:'profile', label:'Profile', icon:'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8z', children:[
+    { id:'profile/info', label:'Profile Info' },
+    { id:'profile/kyc', label:'Verify Now', badge:'!' },
+    { id:'profile/documents', label:'Documents' },
+    { id:'profile/agreements', label:'Agreements' },
+    { id:'profile/messages', label:'Messages' },
+    { id:'profile/helpdesk', label:'Help Desk' },
+    { id:'profile/2fa', label:'Two-Factor Auth' },
+  ]},
+  { id:'downloads', label:'Downloads', icon:'M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4 M7 10l5 5 5-5 M12 15V3' },
+  { id:'calendar', label:'Economic Calendar', icon:'M8 2v4 M16 2v4 M3 8h18 M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6z' },
+];
+
+function Icon({ d, size=16 }) {
+  const paths = d.split(' M ').map((p,i) => i===0?p:'M '+p);
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      {paths.map((p,i) => <path key={i} d={p.trim()}/>)}
+    </svg>
+  );
+}
+
+function Sidebar({ screen, setScreen }) {
+  const [exp, setExp] = useState({ accounts:true, funds:true, profile:true });
+  const toggle = id => setExp(p => ({...p, [id]:!p[id]}));
+  const isActive = id => screen === id || screen.startsWith(id+'/');
+  return (
+    <aside className="sidebar">
+      <div className="sidebar-logo">
+        <div className="sidebar-logo-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div className="sidebar-logo-text">ANAX <em>CAPITAL</em></div>
+      </div>
+      <div className="sidebar-user">
+        <div className="sidebar-avatar">SS</div>
+        <div>
+          <div className="sidebar-username">Shubham Shukla</div>
+          <div className="sidebar-id">#16909</div>
+        </div>
+      </div>
+      <div className="nav-section">
+        {NAV.map(item => (
+          <div key={item.id}>
+            <div
+              className={`nav-item ${isActive(item.id) && !item.children ? 'active' : ''}`}
+              onClick={() => item.children ? toggle(item.id) : setScreen(item.id)}
+              style={item.children && isActive(item.id) ? {color:'var(--teal)'} : {}}
+            >
+              <Icon d={item.icon} />
+              <span>{item.label}</span>
+              {item.children && (
+                <svg style={{marginLeft:'auto',transition:'200ms',transform:exp[item.id]?'rotate(90deg)':''}} width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>
+              )}
+            </div>
+            {item.children && exp[item.id] && (
+              <div className="nav-sub">
+                {item.children.map(ch => (
+                  <div key={ch.id} className={`nav-item ${screen===ch.id?'active':''}`} onClick={() => setScreen(ch.id)}>
+                    <span>{ch.label}</span>
+                    {ch.badge && <span style={{marginLeft:'auto',background:'rgba(245,158,11,.2)',color:'#F59E0B',fontSize:9,fontWeight:700,padding:'1px 5px',borderRadius:999}}>{ch.badge}</span>}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </aside>
+  );
+}
+
+function Topbar({ screen, setScreen }) {
+  const title = SCREEN_TITLES[screen] || 'Dashboard';
+  return (
+    <div className="topbar">
+      <div className="topbar-left">
+        <div className="topbar-title">{title}</div>
+      </div>
+      <div className="topbar-right">
+        <button className="topbar-btn tb-primary" onClick={() => setScreen('accounts/live')}>
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Open Live Account
+        </button>
+        <button className="topbar-btn tb-ghost" onClick={() => setScreen('funds/deposit')}>Deposit Funds</button>
+        <button className="topbar-btn tb-ghost" onClick={() => setScreen('accounts/demo')}>Demo Account</button>
+        <button className="tb-icon" onClick={() => setScreen('profile/messages')}>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </button>
+        <button className="tb-icon" onClick={() => setScreen('profile/helpdesk')}>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </button>
+        <button className="tb-icon" style={{color:'var(--down)'}}>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function Stepper({ steps, current }) {
+  return (
+    <div className="stepper">
+      {steps.map((s,i) => (
+        <React.Fragment key={s}>
+          <div className="stepper-step">
+            <div className={`stepper-circle ${i<current?'sc-done':i===current?'sc-active':'sc-pending'}`}>
+              {i<current ? <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg> : i+1}
+            </div>
+            <span className={`stepper-label ${i===current?'active':''}`}>{s}</span>
+          </div>
+          {i<steps.length-1 && <div className="stepper-line"/>}
+        </React.Fragment>
+      ))}
+    </div>
+  );
+}
+
+function Dashboard({ setScreen }) {
+  const doneCount = STEPS.filter(s => s.status==='done').length;
+  const pct = Math.round((doneCount/STEPS.length)*100);
+  return (
+    <div>
+      <div className="alert-banner alert-warn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        Your profile has not been verified. Complete the steps below to unlock full trading access.
+        <span className="alert-link" onClick={() => setScreen('profile/kyc')} style={{marginLeft:6}}>Verify Now →</span>
+      </div>
+      <div style={{marginBottom:16}}>
+        <div style={{fontFamily:'var(--fd)',fontSize:20,fontWeight:700,marginBottom:3}}>
+          Welcome, <span className="grad-text">Shubham</span> 👋
+        </div>
+        <div style={{fontSize:12,color:'var(--txt3)'}}>You're a few steps away from trading. Complete your onboarding below.</div>
+      </div>
+      <div className="stat-grid">
+        <div className="stat-card">
+          <div className="stat-lbl">Onboarding Progress</div>
+          <div style={{display:'flex',alignItems:'baseline',gap:5,margin:'5px 0 7px'}}>
+            <span className="grad-text" style={{fontFamily:'var(--fd)',fontSize:26,fontWeight:700}}>{pct}%</span>
+            <span style={{fontSize:11,color:'var(--txt3)'}}>{doneCount}/{STEPS.length} steps</span>
+          </div>
+          <div className="progress-bar"><div className="progress-fill" style={{width:pct+'%'}}/></div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-lbl">Account Balance</div>
+          <div className="stat-val" style={{marginTop:5}}>—</div>
+          <div style={{fontSize:10,color:'var(--txt4)',marginTop:3}}>No accounts yet</div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-lbl">KYC Status</div>
+          <div style={{marginTop:5}}><span className="badge badge-warn">Not Verified</span></div>
+          <div style={{fontSize:10,color:'var(--txt4)',marginTop:5}}>Required to trade</div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-lbl">Client ID</div>
+          <div className="stat-val font-mono" style={{fontSize:16,marginTop:5}}>#16909</div>
+          <div style={{fontSize:10,color:'var(--txt4)',marginTop:3}}>SCA Licensed Broker</div>
+        </div>
+      </div>
+      <div className="grid-2" style={{marginBottom:16}}>
+        <div className="card">
+          <div className="card-header">
+            <span className="card-title">Getting Started Checklist</span>
+            <span style={{fontSize:10,color:'var(--txt3)'}}>{doneCount}/{STEPS.length} complete</span>
+          </div>
+          <div className="step-list">
+            {STEPS.map(step => (
+              <div key={step.id} className={`step-item ${step.status==='current'?'active-step':''}`} onClick={() => step.screen && setScreen(step.screen)}>
+                <div className={`step-num ${step.status==='done'?'step-done':step.status==='current'?'step-current':'step-pending'}`}>
+                  {step.status==='done' ? <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg> : step.num}
+                </div>
+                <div className="step-content">
+                  <div className="step-title" style={{color:step.status==='pending'?'var(--txt3)':'var(--txt)'}}>{step.title}</div>
+                  <div className="step-desc">{step.desc}</div>
+                  {step.status==='current' && step.cta && (
+                    <div className="step-cta">
+                      <button className="btn btn-sm btn-primary" onClick={e => {e.stopPropagation();setScreen(step.screen)}}>{step.cta} →</button>
+                    </div>
+                  )}
+                </div>
+                {step.screen && <svg className="step-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>}
+              </div>
+            ))}
+          </div>
+        </div>
+        <div style={{display:'flex',flexDirection:'column',gap:12}}>
+          <div className="card card-p">
+            <div className="card-title" style={{marginBottom:12}}>Quick Actions</div>
+            <div style={{display:'flex',flexDirection:'column',gap:7}}>
+              <button className="btn btn-md btn-primary btn-full" onClick={() => setScreen('profile/kyc')}>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                Verify Identity (KYC)
+              </button>
+              <button className="btn btn-md btn-teal btn-full" onClick={() => setScreen('accounts/live')}>Open Live Account</button>
+              <button className="btn btn-md btn-ghost btn-full" onClick={() => setScreen('funds/deposit')}>Deposit Funds</button>
+              <button className="btn btn-md btn-ghost btn-full" onClick={() => setScreen('accounts/demo')}>Try Demo Account</button>
+              <button className="btn btn-md btn-ghost btn-full" onClick={() => setScreen('downloads')}>Download MT5</button>
+            </div>
+          </div>
+          <div className="card card-p" style={{flex:1}}>
+            <div className="card-title" style={{marginBottom:10}}>Account Info</div>
+            <div className="info-row"><span className="info-label">SCA License</span><span style={{color:'var(--teal)',fontSize:12,fontFamily:'var(--fm)'}}>No. 20200000258</span></div>
+            <div className="info-row"><span className="info-label">Jurisdiction</span><span className="info-value" style={{fontSize:12}}>Dubai, UAE</span></div>
+            <div className="info-row"><span className="info-label">Platforms</span><span style={{color:'var(--teal)',fontSize:12}}>MT4 &amp; MT5</span></div>
+            <div className="info-row"><span className="info-label">Min. Deposit</span><span style={{color:'var(--teal)',fontSize:12,fontFamily:'var(--fm)'}}>$100 USD</span></div>
+            <div className="info-row"><span className="info-label">Support</span><span className="info-value" style={{fontSize:12}}>24/5 · English &amp; Arabic</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AccountOverview({ setScreen }) {
+  return (
+    <div>
+      <div className="empty">
+        <svg className="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+        <div className="empty-title">No Trading Accounts Yet</div>
+        <div className="empty-desc" style={{marginBottom:16}}>Open a live or demo account to start trading on MT5.</div>
+        <div style={{display:'flex',gap:8,justifyContent:'center'}}>
+          <button className="btn btn-md btn-primary" onClick={() => setScreen('accounts/live')}>Open Live Account</button>
+          <button className="btn btn-md btn-ghost" onClick={() => setScreen('accounts/demo')}>Open Demo Account</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function OpenAccount({ type }) {
+  const [step, setStep] = useState(0);
+  const [acctType, setAcctType] = useState('');
+  const steps = ['Select Account Type','Confirmation'];
+  return (
+    <div className="card card-p" style={{maxWidth:520,margin:'0 auto'}}>
+      <Stepper steps={steps} current={step}/>
+      {step===0 && (
+        <>
+          <div className="field"><div className="field-label">Account Type</div>
+            <select className="select" value={acctType} onChange={e => setAcctType(e.target.value)}>
+              <option value="">Select…</option><option>Prime — Retail</option><option>Pro — Active Trader</option><option>Elite — Institutional</option>
+            </select>
+          </div>
+          <div className="field"><div className="field-label">Base Currency</div>
+            <select className="select"><option>USD — US Dollar</option><option>AED — UAE Dirham</option><option>EUR — Euro</option></select>
+          </div>
+          <div className="field"><div className="field-label">Leverage</div>
+            <select className="select"><option>1:100</option><option>1:200</option><option>1:400 — Eligible clients only</option></select>
+          </div>
+          <button className="btn btn-md btn-primary" disabled={!acctType} onClick={() => setStep(1)} style={{opacity:acctType?1:.5}}>Continue →</button>
+        </>
+      )}
+      {step===1 && (
+        <>
+          <div style={{background:'var(--surface-r)',border:'1px solid var(--border)',borderRadius:8,padding:14,marginBottom:16}}>
+            <div className="info-row"><span className="info-label">Account Type</span><span className="info-value">{acctType||'Prime'}</span></div>
+            <div className="info-row"><span className="info-label">Currency</span><span className="info-value">USD</span></div>
+            <div className="info-row"><span className="info-label">Leverage</span><span className="info-value">1:100</span></div>
+            <div className="info-row"><span className="info-label">Platform</span><span className="info-value">MetaTrader 5</span></div>
+          </div>
+          <div style={{display:'flex',gap:8}}>
+            <button className="btn btn-md btn-ghost" onClick={() => setStep(0)}>← Back</button>
+            <button className="btn btn-md btn-primary" style={{flex:1,justifyContent:'center'}} onClick={() => setStep(2)}>Confirm &amp; Create Account</button>
+          </div>
+        </>
+      )}
+      {step===2 && (
+        <div style={{textAlign:'center',padding:'20px 0'}}>
+          <div style={{width:52,height:52,borderRadius:'50%',background:'rgba(16,185,129,.12)',border:'1px solid rgba(16,185,129,.3)',display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 14px'}}>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div style={{fontFamily:'var(--fd)',fontSize:17,fontWeight:700,marginBottom:5}}>Account Created!</div>
+          <div style={{fontSize:12,color:'var(--txt3)'}}>Your MT5 trading account has been set up. Check your email for login credentials.</div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function DepositFunds() {
+  const [step, setStep] = useState(0);
+  return (
+    <div className="card card-p" style={{maxWidth:520,margin:'0 auto'}}>
+      <Stepper steps={['Initial Information','Transfer Details','Confirmation']} current={step}/>
+      {step===0 && (
+        <>
+          <div className="alert-banner alert-warn" style={{marginBottom:14}}>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            KYC verification required before depositing funds.
+          </div>
+          <div className="field"><div className="field-label">Deposit to Account</div><select className="select"><option>Select a trading account…</option></select></div>
+          <div className="field"><div className="field-label">Payment Method</div><select className="select"><option>Bank Transfer (Wire)</option><option>Credit / Debit Card</option><option>Crypto</option></select></div>
+          <div className="field"><div className="field-label">Amount (USD)</div><input className="input" placeholder="e.g. 1000" type="number"/></div>
+          <button className="btn btn-md btn-primary btn-full" onClick={() => setStep(1)}>Continue →</button>
+        </>
+      )}
+      {step===1 && (
+        <>
+          <div style={{background:'var(--surface-r)',border:'1px solid var(--border)',borderRadius:8,padding:14,marginBottom:14}}>
+            <div style={{fontSize:11,color:'var(--txt3)',marginBottom:8}}>Please transfer to the following bank details:</div>
+            <div className="info-row"><span className="info-label">Bank Name</span><span className="info-value font-mono" style={{fontSize:12}}>Emirates NBD</span></div>
+            <div className="info-row"><span className="info-label">Account Name</span><span className="info-value font-mono" style={{fontSize:12}}>ANAX Capital FM LLC</span></div>
+            <div className="info-row"><span className="info-label">IBAN</span><span className="info-value font-mono" style={{fontSize:12}}>AE07 0331 2345 6789 0123 456</span></div>
+            <div className="info-row"><span className="info-label">Reference</span><span className="font-mono" style={{fontSize:12,color:'var(--teal)'}}>#16909</span></div>
+          </div>
+          <div style={{display:'flex',gap:8}}>
+            <button className="btn btn-md btn-ghost" onClick={() => setStep(0)}>← Back</button>
+            <button className="btn btn-md btn-primary" style={{flex:1,justifyContent:'center'}} onClick={() => setStep(2)}>I Have Transferred →</button>
+          </div>
+        </>
+      )}
+      {step===2 && (
+        <div style={{textAlign:'center',padding:'20px 0'}}>
+          <div style={{width:52,height:52,borderRadius:'50%',background:'rgba(245,158,11,.12)',border:'1px solid rgba(245,158,11,.3)',display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 12px'}}>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div style={{fontFamily:'var(--fd)',fontSize:17,fontWeight:700,marginBottom:5}}>Transfer Submitted</div>
+          <div style={{fontSize:12,color:'var(--txt3)'}}>Your deposit request has been recorded. Processing takes up to 24 hours.</div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function WithdrawFunds() {
+  return (
+    <div className="card card-p" style={{maxWidth:520,margin:'0 auto'}}>
+      <Stepper steps={['Initial Information','Transfer Details','Confirmation']} current={0}/>
+      <div className="alert-banner alert-warn" style={{marginBottom:14}}>KYC verification is required before withdrawals can be processed.</div>
+      <div className="field"><div className="field-label">Withdraw From</div><select className="select"><option>Select an account…</option></select></div>
+      <div className="field"><div className="field-label">Withdrawal Method</div><select className="select"><option>Bank Transfer (Wire)</option></select></div>
+      <div className="field"><div className="field-label">Amount (USD)</div><input className="input" placeholder="Enter amount" type="number"/></div>
+      <button className="btn btn-md btn-primary">Continue →</button>
+    </div>
+  );
+}
+
+function TransferFunds() {
+  return (
+    <div className="card card-p" style={{maxWidth:520,margin:'0 auto'}}>
+      <Stepper steps={['Initial Information','Transfer Details','Confirmation']} current={0}/>
+      <div className="field"><div className="field-label">Transfer From</div><select className="select"><option>Select…</option></select></div>
+      <div className="field"><div className="field-label">Transfer To</div><select className="select"><option>Select…</option></select></div>
+      <div className="field"><div className="field-label">Amount</div><input className="input" placeholder="Enter amount" type="number"/></div>
+      <button className="btn btn-md btn-primary">Continue →</button>
+    </div>
+  );
+}
+
+function TransactionHistory() {
+  const [tab, setTab] = useState('transactions');
+  return (
+    <div>
+      <div className="tabs">
+        <div className={`tab ${tab==='pending'?'active':''}`} onClick={() => setTab('pending')}>Pending Transactions</div>
+        <div className={`tab ${tab==='transactions'?'active':''}`} onClick={() => setTab('transactions')}>Transactions History</div>
+        <div className={`tab ${tab==='transfers'?'active':''}`} onClick={() => setTab('transfers')}>Transfers History</div>
+      </div>
+      <div className="card"><div className="empty"><div className="empty-title">No Records Found</div><div className="empty-desc">Your transaction history will appear here.</div></div></div>
+    </div>
+  );
+}
+
+function ProfileInfo() {
+  return (
+    <div className="grid-2">
+      <div className="card card-p">
+        <div className="card-title" style={{marginBottom:14}}>Profile Information</div>
+        {[['First Name','Shubham'],['Last Name','Shukla'],['Client ID','#16909'],['Date of Birth','02-01-1994'],['Email','shubham@anaxcapital.ae'],['Mobile','+971 50 240 5139'],['Language','English'],['2FA','Disabled']].map(([l,v]) => (
+          <div key={l} className="info-row">
+            <span className="info-label">{l}</span>
+            <span className="info-value font-mono" style={{fontSize:12}}>{v}</span>
+            {['Email','Mobile'].includes(l) && <button className="btn btn-sm btn-ghost info-action">Change</button>}
+          </div>
+        ))}
+      </div>
+      <div className="card card-p" style={{border:'1px solid rgba(239,68,68,.3)',background:'rgba(239,68,68,.04)'}}>
+        <div style={{display:'flex',gap:8,alignItems:'center',marginBottom:12}}>
+          <span className="badge badge-error" style={{fontSize:11,padding:'3px 9px'}}>Not Verified</span>
+        </div>
+        <div style={{fontSize:12,color:'var(--txt2)',marginBottom:12,lineHeight:1.6}}>
+          Your profile is not yet verified. Complete KYC to enable deposits, withdrawals, and live trading.
+        </div>
+        <div className="info-row" style={{borderBottom:'none'}}>
+          <span style={{fontSize:12,color:'var(--txt2)'}}>Profile KYC</span>
+          <span className="badge badge-error" style={{marginLeft:'auto'}}>No</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function KYCScreen() {
+  return (
+    <div>
+      <div className="alert-banner alert-warn" style={{marginBottom:16}}>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        Identity verification is required to unlock deposits, withdrawals, and live trading.
+      </div>
+      <div className="grid-2" style={{marginBottom:16}}>
+        {[
+          {color:'#3563DF',title:"What you'll need",items:['Valid passport or Emirates ID','Proof of address (utility bill, bank statement)','Selfie / liveness check','Source of funds declaration']},
+          {color:'#44D0C4',title:'What to expect',items:['Verification powered by Sumsub','Takes approximately 5–10 minutes','Result usually within 24 hours',"You'll be notified by email"]},
+        ].map(card => (
+          <div key={card.title} className="card card-p">
+            <div className="card-title" style={{marginBottom:10,color:card.color}}>{card.title}</div>
+            {card.items.map(item => (
+              <div key={item} style={{display:'flex',gap:7,alignItems:'flex-start',marginBottom:7}}>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" strokeWidth="2" style={{marginTop:2,flexShrink:0}}><polyline points="20 6 9 17 4 12"/></svg>
+                <span style={{fontSize:12,color:'var(--txt2)'}}>{item}</span>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+      <div className="card card-p" style={{maxWidth:440,margin:'0 auto',textAlign:'center'}}>
+        <div style={{width:60,height:60,borderRadius:14,background:'var(--surface-r)',border:'1px solid var(--border)',display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 14px'}}>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" strokeWidth="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div style={{fontFamily:'var(--fd)',fontSize:17,fontWeight:700,marginBottom:5}}>Verify Your Identity</div>
+        <div style={{fontSize:12,color:'var(--txt3)',marginBottom:18,lineHeight:1.6}}>
+          Verification for Anax Capital Financial Markets LLC.<br/>Powered by Sumsub — secure, encrypted, SCA compliant.
+        </div>
+        <button className="btn btn-lg btn-primary btn-full">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Start Verification Now
+        </button>
+        <div style={{fontSize:10,color:'var(--txt4)',marginTop:8}}>By continuing you agree to submit identity data for verification purposes.</div>
+      </div>
+    </div>
+  );
+}
+
+function AdditionalDocs() {
+  return (
+    <div className="grid-2">
+      <div className="card card-p">
+        <div className="card-title" style={{marginBottom:14}}>Upload New Document</div>
+        <div className="field"><div className="field-label">Document Type</div><select className="select"><option>Select…</option><option>Passport</option><option>Emirates ID</option><option>Utility Bill</option><option>Bank Statement</option></select></div>
+        <div className="upload-drop"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--txt4)" strokeWidth="1.5" style={{marginBottom:7}}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><div style={{fontSize:12,color:'var(--txt3)'}}>Drag & drop or click to upload</div><div style={{fontSize:10,color:'var(--txt4)',marginTop:3}}>PNG, JPG, PDF up to 10MB</div></div>
+        <button className="btn btn-md btn-primary btn-full" style={{marginTop:10}}>Upload Document</button>
+      </div>
+      <div className="card card-p">
+        <div className="card-title" style={{marginBottom:14}}>Uploaded Documents</div>
+        <div className="empty" style={{padding:'28px 0'}}><div className="empty-title">No documents uploaded</div><div className="empty-desc">Documents you upload will appear here.</div></div>
+      </div>
+    </div>
+  );
+}
+
+function Agreements() {
+  const docs = ['Privacy Policy v2','Risk Warning Disclosure v2','Cookies Policy v2','Client Terms and Conditions v2','Disclaimer v1','Conflict of Interest Policy','Order Execution Policy','Payment Terms'];
+  return (
+    <div className="card card-p">
+      <div className="card-title" style={{marginBottom:14}}>My Agreements</div>
+      {docs.map(d => (
+        <div key={d} style={{display:'flex',alignItems:'center',gap:8,padding:'8px 0',borderBottom:'1px solid rgba(255,255,255,.04)',cursor:'pointer'}}>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--txt4)" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          <span style={{fontSize:12,color:'var(--teal)',textDecoration:'underline'}}>{d}</span>
+          <span className="badge badge-success" style={{marginLeft:'auto'}}>Accepted</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function Messages() {
+  return <div className="card"><div className="card-header"><span className="card-title">Messages</span><span style={{fontSize:11,color:'var(--txt3)'}}>0 records</span></div><div className="empty"><div className="empty-title">No Messages</div><div className="empty-desc">Messages from ANAX Capital will appear here.</div></div></div>;
+}
+
+function HelpDesk() {
+  return (
+    <div className="card">
+      <div className="card-header"><span className="card-title">Help Desk</span><button className="btn btn-sm btn-primary">+ New Ticket</button></div>
+      <div className="tabs" style={{padding:'0 18px',marginBottom:0}}>
+        <div className="tab active">Open Tickets</div>
+        <div className="tab">Closed Tickets</div>
+      </div>
+      <div className="empty"><div className="empty-title">No Open Tickets</div><div className="empty-desc">Need help? Create a new support ticket above.</div></div>
+    </div>
+  );
+}
+
+function TwoFA() {
+  return (
+    <div className="card card-p" style={{maxWidth:440}}>
+      <div className="card-title" style={{marginBottom:7}}>Two-Factor Authentication</div>
+      <div style={{fontSize:12,color:'var(--txt3)',marginBottom:14}}>Two-factor authentication is not currently enabled on your account.</div>
+      <button className="btn btn-md btn-teal btn-full">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Enable via Google Authenticator
+      </button>
+    </div>
+  );
+}
+
+function Downloads() {
+  const platforms = [
+    {name:'MT5 Desktop',sub:'Windows & macOS',icon:<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" strokeWidth="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>},
+    {name:'MT5 iOS',sub:'iPhone & iPad',icon:<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" strokeWidth="1.5"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>},
+    {name:'MT5 Android',sub:'Android devices',icon:<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" strokeWidth="1.5"><path d="M6 18V8a6 6 0 0 1 12 0v10"/><path d="M3 14h18v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4z"/></svg>},
+    {name:'Web Trader',sub:'Browser — no download',icon:<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>},
+  ];
+  return (
+    <div className="dl-grid">
+      {platforms.map(p => (
+        <div key={p.name} className="dl-card">
+          <div className="dl-icon">{p.icon}</div>
+          <div>
+            <div style={{fontFamily:'var(--fd)',fontWeight:600,fontSize:14,marginBottom:2}}>{p.name}</div>
+            <div style={{fontSize:11,color:'var(--txt3)'}}>{p.sub}</div>
+          </div>
+          <button className="btn btn-sm btn-primary">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download
+          </button>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function EconomicCalendar() {
+  const events = [
+    {time:'08:30',cur:'USD',event:'Initial Jobless Claims',actual:'215K',forecast:'220K',prev:'218K',impact:'high'},
+    {time:'10:00',cur:'EUR',event:'ECB Vice President Speech',actual:'—',forecast:'—',prev:'—',impact:'medium'},
+    {time:'14:00',cur:'USD',event:'Existing Home Sales',actual:'3.98M',forecast:'4.01M',prev:'4.13M',impact:'medium'},
+    {time:'16:30',cur:'CAD',event:'Building Permits m/m',actual:'−8.5%',forecast:'−3.9%',prev:'3.5%',impact:'low'},
+    {time:'18:00',cur:'JPY',event:'BoJ M2 Money Stock y/y',actual:'2.0%',forecast:'1.9%',prev:'1.7%',impact:'low'},
+  ];
+  const impColor = {high:'var(--down)',medium:'var(--warn)',low:'var(--up)'};
+  return (
+    <div className="card">
+      <div className="card-header"><span className="card-title">Economic Calendar</span><span style={{fontSize:10,color:'var(--txt3)'}}>19 Apr 2026 · GMT+4</span></div>
+      <div style={{padding:'0 18px 18px'}}>
+        <div style={{display:'grid',gridTemplateColumns:'55px 45px 1fr 70px 70px 70px 8px',gap:8,padding:'7px 0',borderBottom:'1px solid var(--border)',fontSize:10,color:'var(--txt4)',textTransform:'uppercase',letterSpacing:'.05em'}}>
+          <span>Time</span><span>Cur</span><span>Event</span><span style={{textAlign:'right'}}>Actual</span><span style={{textAlign:'right'}}>Forecast</span><span style={{textAlign:'right'}}>Previous</span><span></span>
+        </div>
+        {events.map((ev,i) => (
+          <div key={i} style={{display:'grid',gridTemplateColumns:'55px 45px 1fr 70px 70px 70px 8px',gap:8,alignItems:'center',padding:'9px 0',borderBottom:'1px solid rgba(255,255,255,.03)',fontSize:12}}>
+            <span className="font-mono" style={{color:'var(--txt3)',fontSize:11}}>{ev.time}</span>
+            <span className="badge badge-neutral" style={{fontSize:10}}>{ev.cur}</span>
+            <span style={{color:'var(--txt)',fontWeight:500}}>{ev.event}</span>
+            <span className="font-mono" style={{textAlign:'right',fontSize:11,color:ev.actual!=='—'?'var(--up)':'var(--txt4)'}}>{ev.actual}</span>
+            <span className="font-mono" style={{textAlign:'right',fontSize:11,color:'var(--txt3)'}}>{ev.forecast}</span>
+            <span className="font-mono" style={{textAlign:'right',fontSize:11,color:'var(--txt4)'}}>{ev.prev}</span>
+            <div style={{width:6,height:6,borderRadius:'50%',background:impColor[ev.impact]}}></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ScreenContent({ screen, setScreen }) {
+  switch(screen) {
+    case 'dashboard': return <Dashboard setScreen={setScreen}/>;
+    case 'accounts/overview': return <AccountOverview setScreen={setScreen}/>;
+    case 'accounts/demo': return <OpenAccount type="demo"/>;
+    case 'accounts/live': return <OpenAccount type="live"/>;
+    case 'funds/deposit': return <DepositFunds/>;
+    case 'funds/withdraw': return <WithdrawFunds/>;
+    case 'funds/transfer': return <TransferFunds/>;
+    case 'funds/history': return <TransactionHistory/>;
+    case 'profile/info': return <ProfileInfo/>;
+    case 'profile/kyc': return <KYCScreen/>;
+    case 'profile/documents': return <AdditionalDocs/>;
+    case 'profile/agreements': return <Agreements/>;
+    case 'profile/messages': return <Messages/>;
+    case 'profile/helpdesk': return <HelpDesk/>;
+    case 'profile/2fa': return <TwoFA/>;
+    case 'downloads': return <Downloads/>;
+    case 'calendar': return <EconomicCalendar/>;
+    default: return <Dashboard setScreen={setScreen}/>;
+  }
+}
+
+function App() {
+  const [screen, setScreen] = useState('dashboard');
+  return (
+    <div className="portal">
+      <Sidebar screen={screen} setScreen={setScreen}/>
+      <div className="main">
+        <Topbar screen={screen} setScreen={setScreen}/>
+        <div className="content">
+          <ScreenContent screen={screen} setScreen={setScreen}/>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>
