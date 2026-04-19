@@ -14,11 +14,10 @@
   --bg:#070B14;--bg-e:#0D1321;--surface:#141C2E;--surface-r:#1A2340;
   --border:rgba(255,255,255,0.07);--border-a:rgba(68,208,196,0.28);
   --grad:linear-gradient(90deg,#3563DF 0%,#44D0C4 100%);
-  --grad-135:linear-gradient(135deg,#3563DF 0%,#44D0C4 100%);
   --blue:#3563DF;--teal:#44D0C4;--up:#10B981;--down:#EF4444;--warn:#F59E0B;
   --txt:#FFFFFF;--txt2:#9CA3AF;--txt3:#6B7280;--txt4:#4B5563;
   --fd:'Plus Jakarta Sans',sans-serif;--fb:'Inter',sans-serif;--fm:'JetBrains Mono',monospace;
-  --sidebar-w:220px;--topbar-h:52px;--t:160ms ease-out;--r:8px;
+  --sidebar-w:224px;--topbar-h:54px;--t:160ms ease-out;--r:8px;
 }
 html,body,#root{height:100%}
 body{background:var(--bg);color:var(--txt);font-family:var(--fb);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow:hidden}
@@ -27,79 +26,127 @@ body{background:var(--bg);color:var(--txt);font-family:var(--fb);font-size:14px;
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden}
 .topbar{height:var(--topbar-h);background:var(--bg-e);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 20px;flex-shrink:0}
 .content{flex:1;overflow-y:auto;padding:20px;background:var(--bg)}
-.sidebar-logo{padding:14px 16px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
-.sidebar-logo-icon{width:30px;height:30px;background:var(--grad);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.sidebar-logo-text{font-family:var(--fd);font-size:14px;font-weight:700;color:var(--txt)}
-.sidebar-logo-text em{color:var(--teal);font-style:normal}
+
+/* SIDEBAR */
+.sidebar-logo{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:center;min-height:64px}
+.sidebar-logo img{height:36px;width:auto;object-fit:contain}
 .sidebar-user{padding:12px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
-.sidebar-avatar{width:30px;height:30px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0}
+.sidebar-avatar{width:32px;height:32px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0}
 .sidebar-username{font-size:12px;font-weight:600;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sidebar-id{font-size:10px;color:var(--txt3);font-family:var(--fm)}
-.nav-section{padding:4px 0}
-.nav-section-label{font-size:10px;font-weight:600;color:var(--txt4);text-transform:uppercase;letter-spacing:.08em;padding:8px 14px 3px}
-.nav-item{display:flex;align-items:center;gap:9px;padding:7px 14px;cursor:pointer;transition:all var(--t);color:var(--txt2);font-size:12px;font-weight:500;position:relative}
+.nav-section{padding:4px 0;flex:1}
+.nav-item{display:flex;align-items:center;gap:9px;padding:8px 14px;cursor:pointer;transition:all var(--t);color:var(--txt2);font-size:12px;font-weight:500}
 .nav-item:hover{background:rgba(255,255,255,0.04);color:var(--txt)}
 .nav-item.active{background:rgba(53,99,223,0.12);color:var(--teal);border-right:2px solid var(--teal)}
 .nav-item svg{flex-shrink:0;opacity:.7}
 .nav-item.active svg{opacity:1}
-.nav-badge{margin-left:auto;background:var(--grad);color:#fff;font-size:9px;font-weight:700;padding:1px 5px;border-radius:999px}
+.nav-badge-warn{margin-left:auto;background:rgba(245,158,11,.2);color:#F59E0B;font-size:9px;font-weight:700;padding:1px 6px;border-radius:999px}
 .nav-sub{padding-left:36px}
-.nav-sub .nav-item{font-size:11px;font-weight:400;padding:5px 10px 5px 0}
+.nav-sub .nav-item{font-size:11px;font-weight:400;padding:6px 10px 6px 0}
+.sidebar-footer{padding:12px 14px;border-top:1px solid var(--border);margin-top:auto}
+.sidebar-footer-text{font-size:9px;color:var(--txt4);text-align:center;line-height:1.6}
+.sidebar-footer-text em{color:var(--teal);font-style:normal}
+
+/* TOPBAR */
 .topbar-left{display:flex;align-items:center;gap:8px}
 .topbar-title{font-family:var(--fd);font-size:15px;font-weight:600;color:var(--txt)}
-.topbar-breadcrumb{font-size:11px;color:var(--txt3)}
 .topbar-right{display:flex;align-items:center;gap:6px}
-.topbar-btn{display:flex;align-items:center;gap:5px;padding:5px 12px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;border:none;font-family:var(--fb);transition:all var(--t)}
+.topbar-btn{display:flex;align-items:center;gap:5px;padding:6px 13px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;border:none;font-family:var(--fb);transition:all var(--t)}
 .tb-primary{background:var(--grad);color:#fff}
 .tb-primary:hover{opacity:.9}
 .tb-ghost{background:transparent;color:var(--txt2);border:1px solid var(--border)}
 .tb-ghost:hover{background:rgba(255,255,255,.04);color:var(--txt)}
-.tb-icon{background:transparent;border:none;color:var(--txt3);cursor:pointer;padding:5px;border-radius:6px;transition:all var(--t);display:flex;align-items:center;justify-content:center}
+.tb-icon{background:transparent;border:none;color:var(--txt3);cursor:pointer;padding:6px;border-radius:6px;transition:all var(--t);display:flex;align-items:center;justify-content:center}
 .tb-icon:hover{background:rgba(255,255,255,.06);color:var(--txt)}
+.tb-logout{color:var(--down)!important}
+.tb-logout:hover{background:rgba(239,68,68,.08)!important}
+
+/* CARDS */
 .alert-banner{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:var(--r);margin-bottom:16px;font-size:12px}
 .alert-warn{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);color:#FCD34D}
-.alert-info{background:rgba(53,99,223,.1);border:1px solid rgba(53,99,223,.25);color:#93C5FD}
-.alert-success{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);color:#6EE7B7}
-.alert-link{color:inherit;font-weight:600;text-decoration:underline;cursor:pointer}
+.alert-link{color:inherit;font-weight:700;text-decoration:underline;cursor:pointer;margin-left:6px}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r)}
-.card-hover:hover{border-color:var(--border-a)}
 .card-p{padding:18px}
 .card-header{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
 .card-title{font-family:var(--fd);font-size:13px;font-weight:600;color:var(--txt)}
-.step-list{display:flex;flex-direction:column;gap:0}
-.step-item{display:flex;align-items:flex-start;gap:14px;padding:14px 18px;border-bottom:1px solid var(--border);position:relative;transition:background var(--t);cursor:pointer}
-.step-item:last-child{border-bottom:none}
-.step-item:hover{background:rgba(255,255,255,.02)}
-.step-item.active-step{background:rgba(53,99,223,.06)}
-.step-num{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px}
-.step-done{background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.4);color:#10B981}
-.step-current{background:var(--grad);color:#fff;box-shadow:0 0 10px rgba(53,99,223,.3)}
-.step-pending{background:var(--surface-r);border:1px solid var(--border);color:var(--txt4)}
-.step-content{flex:1}
-.step-title{font-size:13px;font-weight:600;color:var(--txt);margin-bottom:2px}
-.step-desc{font-size:11px;color:var(--txt3);line-height:1.5}
-.step-cta{margin-top:8px}
-.step-arrow{color:var(--txt4);margin-top:5px;flex-shrink:0}
-.progress-bar{height:4px;background:var(--surface-r);border-radius:2px;overflow:hidden}
-.progress-fill{height:100%;background:var(--grad);border-radius:2px;transition:width .4s ease}
+
+/* ACTION CARDS — main dashboard */
+.action-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:12px;margin-bottom:16px}
+.action-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 18px;display:flex;flex-direction:column;cursor:pointer;transition:all var(--t)}
+.action-card:hover{border-color:var(--border-a);transform:translateY(-1px)}
+.action-card.dep{background:linear-gradient(160deg,#002E3A 0%,#001520 100%);border-color:rgba(68,208,196,.2)}
+.action-icon{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;flex-shrink:0}
+.ic-dep{background:rgba(68,208,196,.12)}
+.ic-with{background:rgba(99,153,34,.1)}
+.ic-dl{background:rgba(55,138,221,.1)}
+.ic-kyc{background:rgba(245,158,11,.1)}
+.action-title{font-size:14px;font-weight:700;color:var(--txt);margin-bottom:5px}
+.action-desc{font-size:11px;color:var(--txt3);line-height:1.5;flex:1;margin-bottom:16px}
+.action-btn{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:8px 16px;border-radius:7px;border:none;cursor:pointer;font-family:var(--fb);text-decoration:none;transition:all var(--t);align-self:flex-start}
+.dep-lbl{font-size:9px;font-weight:700;color:var(--teal);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px}
+.dep-amt{font-size:38px;font-weight:800;color:var(--txt);line-height:1;margin-bottom:4px}
+.dep-sub{font-size:10px;color:var(--txt3);margin-bottom:20px}
+@keyframes anax-hb{0%,100%{box-shadow:0 0 0 0 rgba(68,208,196,.5)}70%{box-shadow:0 0 0 12px rgba(68,208,196,0)}}
+.dep-cta{background:var(--teal);color:#071020;font-size:14px;font-weight:800;padding:14px;border-radius:10px;border:none;cursor:pointer;width:100%;font-family:var(--fb);animation:anax-hb 1.8s ease-in-out infinite;transition:background .2s}
+.dep-cta:hover{background:#00DDEF}
+.dep-chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:14px}
+.dep-chip{padding:4px 9px;border-radius:4px;font-size:9px;font-weight:600;border:1px solid rgba(68,208,196,.2);color:var(--teal);background:rgba(68,208,196,.05)}
+.dep-chip.dim{border-color:var(--border);color:var(--txt4);background:transparent}
+.ab-green{background:rgba(99,153,34,.12);color:#7EC43A;border:1px solid rgba(99,153,34,.25)}
+.ab-green:hover{background:rgba(99,153,34,.2)}
+.ab-blue{background:rgba(55,138,221,.12);color:#378ADD;border:1px solid rgba(55,138,221,.25)}
+.ab-blue:hover{background:rgba(55,138,221,.2)}
+.ab-amber{background:rgba(245,158,11,.12);color:#F59E0B;border:1px solid rgba(245,158,11,.25)}
+.ab-amber:hover{background:rgba(245,158,11,.2)}
+
+/* STAT CARDS */
 .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
 .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px}
 .stat-val{font-family:var(--fd);font-size:18px;font-weight:700;color:var(--txt)}
 .stat-lbl{font-size:10px;color:var(--txt3);margin-top:1px}
-.stat-chg{font-family:var(--fm);font-size:10px;margin-top:4px}
+
+/* CHART */
+.tv-wrap{position:relative;border-radius:0 0 var(--r) var(--r);overflow:hidden}
+.tv-blocker{position:absolute;top:0;left:0;width:100%;height:100%;z-index:10;cursor:pointer;background:transparent}
+.tv-brand-cover{position:absolute;bottom:0;right:0;width:180px;height:40px;background:var(--bg);z-index:20;display:flex;align-items:center;justify-content:flex-end;padding-right:12px}
+.tv-brand-cover span{font-size:9px;color:var(--txt4)}
+.tv-topright-cover{position:absolute;top:0;right:0;width:220px;height:48px;background:var(--bg-e);z-index:20}
+.pair-pills{display:flex;gap:6px;flex-wrap:wrap;padding:10px 18px}
+.pair-pill{padding:4px 12px;border-radius:999px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--txt3);font-family:var(--fm);transition:all var(--t)}
+.pair-pill:hover{border-color:var(--teal);color:var(--teal)}
+.pair-pill.active{background:rgba(68,208,196,.12);border-color:var(--teal);color:var(--teal)}
+
+/* MODALS */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:9999;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.modal-box{background:var(--bg-e);border:1px solid var(--border-a);border-radius:16px;width:420px;max-width:90vw;overflow:hidden;animation:modalIn .2s ease-out}
+.modal-box-sm{width:360px}
+@keyframes modalIn{from{opacity:0;transform:scale(.95) translateY(8px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.modal-header{background:linear-gradient(135deg,#071A2E,#040D1A);padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.modal-title{font-family:var(--fd);font-size:16px;font-weight:700;color:var(--txt)}
+.modal-close{background:transparent;border:none;color:var(--txt3);cursor:pointer;padding:4px;border-radius:6px;display:flex;transition:all var(--t)}
+.modal-close:hover{background:rgba(255,255,255,.08);color:var(--txt)}
+.modal-body{padding:22px}
+.modal-footer-text{padding:0 22px 16px;font-size:10px;color:var(--txt4);text-align:center;line-height:1.7}
+
+/* MISC */
 .btn{display:inline-flex;align-items:center;gap:5px;border:none;cursor:pointer;font-family:var(--fb);font-weight:600;transition:all var(--t);border-radius:6px;text-decoration:none}
 .btn-sm{padding:5px 12px;font-size:11px}
 .btn-md{padding:8px 18px;font-size:12px}
-.btn-lg{padding:11px 24px;font-size:13px}
+.btn-lg{padding:12px 28px;font-size:14px}
 .btn-primary{background:var(--grad);color:#fff}
-.btn-primary:hover{opacity:.9;transform:translateY(-1px)}
+.btn-primary:hover{opacity:.9}
 .btn-teal{background:rgba(68,208,196,.12);color:var(--teal);border:1px solid rgba(68,208,196,.3)}
 .btn-teal:hover{background:rgba(68,208,196,.2)}
 .btn-ghost{background:transparent;color:var(--txt2);border:1px solid var(--border)}
 .btn-ghost:hover{background:rgba(255,255,255,.04);color:var(--txt)}
-.btn-danger{background:rgba(239,68,68,.1);color:var(--down);border:1px solid rgba(239,68,68,.25)}
-.btn-success{background:rgba(16,185,129,.1);color:var(--up);border:1px solid rgba(16,185,129,.25)}
+.btn-danger{background:rgba(239,68,68,.15);color:var(--down);border:1px solid rgba(239,68,68,.3)}
+.btn-danger:hover{background:rgba(239,68,68,.25)}
 .btn-full{width:100%;justify-content:center}
+.badge{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:999px;font-size:10px;font-weight:500}
+.badge-success{background:rgba(16,185,129,.12);color:#10B981;border:1px solid rgba(16,185,129,.25)}
+.badge-warn{background:rgba(245,158,11,.12);color:#F59E0B;border:1px solid rgba(245,158,11,.25)}
+.badge-error{background:rgba(239,68,68,.1);color:var(--down);border:1px solid rgba(239,68,68,.2)}
+.badge-neutral{background:rgba(255,255,255,.06);color:var(--txt3);border:1px solid var(--border)}
 .field{margin-bottom:12px}
 .field-label{font-size:11px;font-weight:500;color:var(--txt2);margin-bottom:4px}
 .input{background:var(--bg-e);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:8px 11px;font-family:var(--fb);font-size:12px;color:var(--txt);outline:none;width:100%;transition:border-color var(--t)}
@@ -110,26 +157,10 @@ body{background:var(--bg);color:var(--txt);font-family:var(--fb);font-size:14px;
 .tab{padding:9px 16px;font-size:12px;font-weight:500;color:var(--txt3);cursor:pointer;border-bottom:2px solid transparent;transition:all var(--t);margin-bottom:-1px}
 .tab:hover{color:var(--txt)}
 .tab.active{color:var(--teal);border-bottom-color:var(--teal)}
-.data-table{width:100%;border-collapse:collapse}
-.data-table th{font-size:10px;color:var(--txt4);font-weight:500;text-align:left;padding:8px 12px;border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:.05em}
-.data-table td{padding:9px 12px;font-size:12px;color:var(--txt2);border-bottom:1px solid rgba(255,255,255,.03)}
-.data-table tr:last-child td{border-bottom:none}
-.data-table tr:hover td{background:rgba(255,255,255,.02)}
-.badge{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:999px;font-size:10px;font-weight:500}
-.badge-success{background:rgba(16,185,129,.12);color:#10B981;border:1px solid rgba(16,185,129,.25)}
-.badge-warn{background:rgba(245,158,11,.12);color:#F59E0B;border:1px solid rgba(245,158,11,.25)}
-.badge-error{background:rgba(239,68,68,.1);color:var(--down);border:1px solid rgba(239,68,68,.2)}
-.badge-info{background:rgba(53,99,223,.12);color:#93C5FD;border:1px solid rgba(53,99,223,.25)}
-.badge-neutral{background:rgba(255,255,255,.06);color:var(--txt3);border:1px solid var(--border)}
 .dl-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
 .dl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:22px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;transition:border-color var(--t);cursor:pointer}
 .dl-card:hover{border-color:var(--border-a)}
 .dl-icon{width:52px;height:52px;border-radius:12px;background:var(--surface-r);display:flex;align-items:center;justify-content:center}
-.acct-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px;position:relative;overflow:hidden}
-.acct-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad)}
-.acct-type{font-size:10px;font-weight:600;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px}
-.acct-num{font-family:var(--fm);font-size:12px;color:var(--txt3);margin-bottom:10px}
-.acct-balance{font-family:var(--fd);font-size:26px;font-weight:700;color:var(--txt)}
 .stepper{display:flex;align-items:center;gap:0;margin-bottom:22px}
 .stepper-step{display:flex;align-items:center;gap:6px}
 .stepper-circle{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
@@ -145,20 +176,20 @@ body{background:var(--bg);color:var(--txt);font-family:var(--fb);font-size:14px;
 .info-value{font-size:12px;color:var(--txt);flex:1}
 .info-action{margin-left:auto}
 .empty{text-align:center;padding:40px 20px}
-.empty-icon{width:44px;height:44px;margin:0 auto 10px;opacity:.3}
 .empty-title{font-size:13px;font-weight:600;color:var(--txt2);margin-bottom:4px}
 .empty-desc{font-size:11px;color:var(--txt4)}
-.tv-ticker-wrap{background:var(--surface);border-bottom:1px solid var(--border);overflow:hidden;height:44px}
 .upload-drop{border:2px dashed rgba(255,255,255,.1);border-radius:var(--r);padding:28px;text-align:center;cursor:pointer;transition:border-color var(--t)}
 .upload-drop:hover{border-color:rgba(68,208,196,.35)}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
 .font-mono{font-family:var(--fm)}
 .grad-text{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:2px}
 ::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.18)}
+.redirect-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;height:300px;gap:14px}
+.redirect-spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--teal);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
@@ -166,69 +197,209 @@ body{background:var(--bg);color:var(--txt);font-family:var(--fb);font-size:14px;
 <script type="text/babel">
 const { useState, useEffect, useRef } = React;
 
-const STEPS = [
-  { num:1, id:'email', status:'done', title:'Email Verified', desc:'Your email address has been confirmed successfully.', screen:null },
-  { num:2, id:'kyc', status:'current', title:'Verify Your Identity (KYC)', desc:'Complete identity verification via Sumsub to unlock full account access.', screen:'profile/kyc', cta:'Start Verification' },
-  { num:3, id:'account', status:'pending', title:'Open a Trading Account', desc:'Open a Live or Demo MT5 account to begin trading across all instruments.', screen:'accounts/live', cta:'Open Account' },
-  { num:4, id:'deposit', status:'pending', title:'Fund Your Account', desc:'Deposit funds via bank transfer or other available payment methods.', screen:'funds/deposit', cta:'Deposit Funds' },
-  { num:5, id:'trade', status:'pending', title:'Download MT5 & Start Trading', desc:'Download MetaTrader 5 on any device and place your first trade.', screen:'downloads', cta:'Download MT5' },
-];
-
-const SCREEN_TITLES = {
-  'dashboard':'Dashboard','accounts/overview':'Accounts Overview','accounts/demo':'Open Demo Account',
-  'accounts/live':'Open Live Account','funds/deposit':'Deposit Funds','funds/withdraw':'Withdraw Funds',
-  'funds/transfer':'Transfer Funds','funds/history':'Transactions History','funds/payment-details':'Payment Details',
-  'profile/info':'Profile','profile/documents':'Additional Documents','profile/kyc':'Verify Now',
-  'profile/agreements':'My Agreements','profile/messages':'Messages','profile/helpdesk':'Help Desk',
-  'profile/2fa':'Two-Factor Authentication','profile/email':'Email Verification','downloads':'Downloads','calendar':'Economic Calendar',
+const BASE = 'https://portal.anaxcapital.ae';
+const URLS = {
+  deposit:BASE+'/funds/deposit/',
+  withdraw:BASE+'/funds/withdraw',
+  transfer:BASE+'/funds/transfer',
+  wallets:BASE+'/wallets/',
+  txHistory:BASE+'/transactions/history',
+  txPending:BASE+'/transactions/history/transactions/transfers',
+  txTransfers:BASE+'/transactions/history/transfers',
+  accounts:BASE+'/accounts',
+  accountsDemo:BASE+'/accounts/new?scope=demo',
+  accountsLive:BASE+'/accounts/new?scope=live',
+  profile:BASE+'/profile',
+  documents:BASE+'/profile/documents',
+  kyc:BASE+'/profile/verification-widget/',
+  agreements:BASE+'/profile/agreements',
+  messages:BASE+'/messages/inbox',
+  helpdesk:BASE+'/help-desk/',
+  twofa:BASE+'/profile/two-factor',
+  downloads:BASE+'/downloads/',
+  calendar:BASE+'/economic-calendar/',
+  login:BASE+'/login',
 };
 
-const NAV = [
-  { id:'dashboard', label:'Dashboard', icon:'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z M9 22V12h6v10' },
-  { id:'accounts', label:'Accounts', icon:'M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z', children:[
-    { id:'accounts/overview', label:'Overview' },
-    { id:'accounts/live', label:'Open Live Account' },
-    { id:'accounts/demo', label:'Open Demo Account' },
-  ]},
-  { id:'funds', label:'Funds', icon:'M12 1v22 M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6', children:[
-    { id:'funds/deposit', label:'Deposit Funds' },
-    { id:'funds/withdraw', label:'Withdraw Funds' },
-    { id:'funds/transfer', label:'Transfer Funds' },
-    { id:'funds/history', label:'Transaction History' },
-  ]},
-  { id:'profile', label:'Profile', icon:'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8z', children:[
-    { id:'profile/info', label:'Profile Info' },
-    { id:'profile/kyc', label:'Verify Now', badge:'!' },
-    { id:'profile/documents', label:'Documents' },
-    { id:'profile/agreements', label:'Agreements' },
-    { id:'profile/messages', label:'Messages' },
-    { id:'profile/helpdesk', label:'Help Desk' },
-    { id:'profile/2fa', label:'Two-Factor Auth' },
-  ]},
-  { id:'downloads', label:'Downloads', icon:'M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4 M7 10l5 5 5-5 M12 15V3' },
-  { id:'calendar', label:'Economic Calendar', icon:'M8 2v4 M16 2v4 M3 8h18 M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6z' },
-];
+const LOGO = 'data:image/png;base64,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5Zzft5SXl7vK4lR79WvMzHRC50LYpwlqmir79fP8I/8Af1YEiIo6+EREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERARF6uJWOsyTI6GyULdZquUMB05mN+2cewDU+RZiJmcoa1VRRTNVXRDde6lhgkmnzSui72Mup6AOHS7ofIPF6ke2W/b9dqOx2Wru9wl5OlpIjLI7sHgHaegdpXVjtqo7FY6K0UDOCmpIWxRjwnQdJ7Sec9pWh963NOUmgwqhl72PhqK8tP23SyM+Id8fG3qV3MRhbPf9XB/b0tju6f0pj+bZbp2f5vYc2tPm6zVOr2aCemk5pYT1OHV1EcxWEbXdilrykTXbH+Stl5Ornt00hqT+cB6lx+6HlHhEXscvd1x67Q3Wz1klJVxHvXsPSPCCOgg9RUqtj22K1Zi2K13XkrbfNNBGXaR1J64yeg/mnn6tfBGt36L8alzpTMVo7EaNr4/CzM0/L3+2H27ueH1uIYRLFdqTzNcqurfJOwkEta3vWjUcxHMSPZL1ttuYDDNn9bcIZOGvqB5moRrz8q4HvvajV3kA8KzQKIW8vmPolzt9tpZeK3Wfip49DqHy/+Y73QG+17VvemLNvKELAWatJY7XudHTP+vp7nduvYsch2ii71TDJSWdvml5dzh0xOkY8eurvarlvafXY/5fD+9y3lu5Yt6GdmtG+eLgrbn/8AmT6jQgOHeNPibpzdZK0bvZ/XY/5fD+9yiV29SzC4wuL8p0tVMdERMR8N7USIiiOnEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQERfTa6KouVyprfSM46iplbDE3rc46D9ZSIz5mJmIjOWdYhskyHKcPGQ2yelDnyvbHTTEsMjW6Dia7o5zqNDp0dKxLJMbv2OVXme92qqoX66NMjO8f7Fw713kJU0cettJj9goLTA5rIKSFkDSTpxHo18ZP6yvurKWlraZ9NWU0NTBINHxSsD2uHaDzFXtWiqJojKcpcjTwiu03Jzpzpz5vVOSBSklusYb5itc+X10Wk9YDDRBw52xA98/2xGnib2r2co2G4bd5uXoGz2eUuBeKd3FG4eEcDujyaDsW0LdS09BQU9FRxNhp6eNsUUbehrWjQD3AtMLgKrVzWr9XQaU01bxGH4u1nGfT7t7zM7yWlxPFK6+1ejhTx/SoydOUkPM1vlP6tSoWsfV5Plsbq2o1qrpWtEspGujpHgE6dQ16FsreczMXrJmY5QzcVDa3ETcJ5n1H23vR3vj4lrfCfqzsf6Rp/lGqLjb3G3dWOiFhobBThsNN2fvVRn8PV/tJzaJsYsd9xekpLJHFQXO3U7YaaYjRszWj1MunTqdTxdIJ8PQos3i23KxXea3XKmmoq6lfo9juZzSOgg9XhBHMekKfbSsE2x7PbRmthlnma2mulJC51NVtbzgAE8Dvumn9XSPDrIxWDiqNajpVGitM1WauLvTnTPr9cbmlcV29X63YhXWe6sfXVwpjHb64O79jjzDlNfVaDnB6dRodddRhOyTGZMx2h221StdJTul5escef6Uzvn6nt9Tr1uCxFSe3RsYbR45W5VOwctcHmnpz1RMPfe6/wDgCgWta/XFNXRC9x3E6Ow9y7ajKavn/OdvdgDWhrQAANAB4FEbey+uv/y+H97lLhpUR97H66//AC+H97lKxkfYc7wd9M+E/RqNERVjuxERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBbU3brNBUZZU5HXuZFQ2WAyulkOjWyOBAJJ8AaHns0C1WshmySaHDIcXtxdDTSympr3jmNRJ0NafzGgDm8J1PUvfD10269er1fNFxluu7am3Rza3Nn7I9bJdtO0eozK6ijt75IbLSP1gZ0GZ45uUd/0HgHaUwbbDluN8nT1FR570DebkapxL2j82TpHl1HYsl2BbMPPOWHKchp//wAFh4qOmkH+/cOh7h9wPAPD4unCduNJS0W1S901HTQ00DXxlscTA1oJiYToBzc5JPlUm55RRT5TM5TM/wA+CBa8juVzgaac4pjP+d/ekRg21vEcn5ODzX52V7tB5mrCG8R6mv8AUu8XMexejtezBmG4VVV7HtFdMOQomnwyEeq06mjU+TtUPrdabncaeqqKCgqKqKkaHVDomF3JtOuhOng5jzpXXW511HTUdbcKqpp6QEU8Uspc2IHTUNB6BzDo6l6ecrnFzFUc/qlFng/Z46KqKvsxPPD5JZJJZXyyvc973FznOOpJPSSV62E/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mOaGVha+NwOhaQecEHwK5FYhmezHZ9mVV5ryfELRcqrQN80SwATEDoBe3RxHlQVLIrQvS57FPxAt/wDrTf1ogrB5ab12T3xTlpvXZPfFdaIOzlpvXZPfFOWm9dk98V1og7OWm9dk98U5ab12T3xXWiASSdTzlERB+gkHUEgjwhc+Wm9dk98V1og7OWm9dk98U5ab12T3xXWiDs5ab12T3xTlpvXZPfFdaIObpZHDR0jyOolfjHuYdWOLT2HRcUQdnLTeuye+KctN67J74rrRB2ctN67J74py03rsnviutEHZy03rsnvinLTeuye+K60QDznUoiIC5tllaNGyPA6g4rgiDs5ab12T3xTlpvXZPfFdaIOzlpvXZPfFOWm9dk98V1og7OWm9dk98V+OkkcNHSPcOolcEQcmPew6sc5viOi5ctN67J74rrRB2ctN67J74py03rsnviutEHZy03rsnvinLTeuye+K60Qc3SSOGjpHOHUTquCIgLkySRg0Y9zR2HRcUQdnLTeuye+KctN67J74rrRB2ctN67J74py03rsnviutEHZy03rsnviuPKScXFxu4uvXnXFEHZy03rsnvinLTeuye+K60QdnLTeuye+KctN67J74rrRB2ctN67J74r8dJI4aOke4dRK4IgLs5ab12T3xXWiDs5ab12T3xTlpvXZPfFdaIOzlpvXZPfFOWm9dk98V1og7OWm9dk98U5ab12T3xXWiDs5ab12T3xRdaICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICL38Bw7I87yWnx7F7bLX18/Pwt5mxtHS97jzNaPCT+8gKbuyLc+w2w00Fbnk7skumgc+nY90VHGeoAaOk06yQD9yggGuRa4AEtIB6CQre8fxHFcegZDYsbtFtYwaNFLRxx/rA1K9qRjJGFj2Ne09IcNQUFNCK2XMNlOznLqd0V/wANs9UXA/Tm0wimHikZo4e6opbed0CrtFHUX7ZlU1Fyp4ml8toqSHVDQOnkngDj9idHc3MXHmQRHRcpY5IpXxSsdHIxxa5rhoWkdII8BXFAREQEU69znYbiFfsfp8jzXF6C6114nfUU/myEPMVOO9YBr0cWjndo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';
 
+function navigate(url){ window.top.location.href = url; }
+
+/* ── FUND POPUP ─────────────────────────────────────────────── */
+function FundPopup({ onClose }) {
+  return (
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-box" onClick={e=>e.stopPropagation()}>
+        <div className="modal-header">
+          <div>
+            <div style={{fontSize:9,fontWeight:700,color:'var(--teal)',letterSpacing:1.5,textTransform:'uppercase',marginBottom:4}}>Fund Your Account</div>
+            <div className="modal-title">Start Trading Global Markets</div>
+          </div>
+          <button className="modal-close" onClick={onClose}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+        <div className="modal-body">
+          <div style={{fontSize:9,fontWeight:700,color:'var(--teal)',letterSpacing:1.5,textTransform:'uppercase',marginBottom:8}}>Minimum Deposit</div>
+          <div style={{fontFamily:'var(--fd)',fontSize:42,fontWeight:800,color:'var(--txt)',lineHeight:1,marginBottom:4}}>00</div>
+          <div style={{fontSize:11,color:'var(--txt3)',marginBottom:20}}>USD · Instant processing · All major currencies accepted</div>
+          <div style={{display:'flex',gap:6,flexWrap:'wrap',marginBottom:20}}>
+            {['Credit Card','Bank Wire','Crypto','Local Transfer','E-wallet'].map((m,i)=>(
+              <div key={m} style={{padding:'4px 10px',borderRadius:4,fontSize:9,fontWeight:600,border:,color:i<3?'var(--teal)':'var(--txt4)',background:i<3?'rgba(68,208,196,.05)':'transparent'}}>{m}</div>
+            ))}
+          </div>
+          <button style={{background:'var(--teal)',color:'#071020',fontSize:15,fontWeight:800,padding:15,borderRadius:10,border:'none',cursor:'pointer',width:'100%',fontFamily:'var(--fb)',letterSpacing:.3,animation:'anax-hb 1.8s ease-in-out infinite'}}
+            onClick={()=>navigate(URLS.deposit)}>
+            + Fund Account Now
+          </button>
+        </div>
+        <div className="modal-footer-text">
+          SCA License No. 20200000258 · Anax Capital Financial Markets LLC · Dubai, UAE<br/>
+          Trading involves significant risk. Losses can exceed your initial deposit.
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── LOGOUT POPUP ────────────────────────────────────────────── */
+function LogoutPopup({ onClose }) {
+  return (
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-box modal-box-sm" onClick={e=>e.stopPropagation()}>
+        <div className="modal-header">
+          <div className="modal-title">Confirm Logout</div>
+          <button className="modal-close" onClick={onClose}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+        <div className="modal-body">
+          <div style={{textAlign:'center',marginBottom:22}}>
+            <div style={{width:52,height:52,borderRadius:'50%',background:'rgba(239,68,68,.1)',border:'1px solid rgba(239,68,68,.2)',display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 14px'}}>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--down)" strokeWidth="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            </div>
+            <div style={{fontFamily:'var(--fd)',fontSize:15,fontWeight:700,marginBottom:6}}>Are you sure?</div>
+            <div style={{fontSize:12,color:'var(--txt3)'}}>You will be logged out of your Anax Capital client portal.</div>
+          </div>
+          <div style={{display:'flex',gap:10}}>
+            <button className="btn btn-ghost btn-full" onClick={onClose}>Cancel</button>
+            <button className="btn btn-danger btn-full" onClick={()=>navigate(URLS.login)}>Yes, Logout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ── TRADINGVIEW CHART ───────────────────────────────────────── */
+function TVChart({ symbol, height, onBlockedClick }) {
+  const ref = useRef(null);
+  const loaded = useRef(false);
+  const key = useRef(symbol);
+
+  useEffect(() => {
+    if(!ref.current) return;
+    // Clear and reload when symbol changes
+    ref.current.innerHTML = '';
+    loaded.current = false;
+    key.current = symbol;
+
+    const container = document.createElement('div');
+    container.className = 'tradingview-widget-container';
+    container.style.height = height + 'px';
+    container.style.width = '100%';
+    const widget = document.createElement('div');
+    widget.className = 'tradingview-widget-container__widget';
+    widget.style.height = '100%';
+    container.appendChild(widget);
+    ref.current.appendChild(container);
+
+    const s = document.createElement('script');
+    s.src = 'https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js';
+    s.async = true;
+    s.innerHTML = JSON.stringify({
+      autosize:true, symbol, interval:'H1', timezone:'Asia/Dubai',
+      theme:'dark', style:'1', locale:'en',
+      backgroundColor:'rgba(7,11,20,1)',
+      gridColor:'rgba(255,255,255,0.04)',
+      hide_top_toolbar:false, hide_legend:false,
+      save_image:false, withdateranges:true,
+      allow_symbol_change:false,
+      details:false, hotlist:false, calendar:false,
+      studies:['RSI@tv-basicstudies'],
+    });
+    container.appendChild(s);
+    loaded.current = true;
+  }, [symbol]);
+
+  return (
+    <div className="tv-wrap" style={{height}}>
+      <div ref={ref} style={{width:'100%',height:'100%'}}/>
+      <div className="tv-blocker" onClick={onBlockedClick}/>
+      <div className="tv-brand-cover"><span>Market Data</span></div>
+      <div className="tv-topright-cover"/>
+    </div>
+  );
+}
+
+/* ── ICON HELPER ─────────────────────────────────────────────── */
 function Icon({ d, size=16 }) {
-  const paths = d.split(' M ').map((p,i) => i===0?p:'M '+p);
+  const paths = d.split(' M ').map((p,i)=>i===0?p:'M '+p);
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      {paths.map((p,i) => <path key={i} d={p.trim()}/>)}
+      {paths.map((p,i)=><path key={i} d={p.trim()}/>)}
     </svg>
   );
 }
 
-function Sidebar({ screen, setScreen }) {
-  const [exp, setExp] = useState({ accounts:true, funds:true, profile:true });
-  const toggle = id => setExp(p => ({...p, [id]:!p[id]}));
-  const isActive = id => screen === id || screen.startsWith(id+'/');
+/* ── NAV CONFIG ──────────────────────────────────────────────── */
+const NAV = [
+  { id:'dashboard', label:'Dashboard', icon:'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z M9 22V12h6v10' },
+  { id:'accounts', label:'Accounts', icon:'M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z', children:[
+    { id:'accounts/overview', label:'Accounts Overview', url:URLS.accounts },
+    { id:'accounts/live', label:'Open Live Account', url:URLS.accountsLive },
+    { id:'accounts/demo', label:'Open Demo Account', url:URLS.accountsDemo },
+  ]},
+  { id:'funds', label:'Funds', icon:'M12 1v22 M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6', children:[
+    { id:'funds/deposit', label:'Deposit Funds', url:URLS.deposit },
+    { id:'funds/withdraw', label:'Withdraw Funds', url:URLS.withdraw },
+    { id:'funds/transfer', label:'Transfer Funds', url:URLS.transfer },
+    { id:'funds/history', label:'Transaction History', url:URLS.txHistory },
+    { id:'funds/wallets', label:'Payment Details', url:URLS.wallets },
+  ]},
+  { id:'profile', label:'Profile', icon:'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2 M12 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8z', children:[
+    { id:'profile/info', label:'Profile Info', url:URLS.profile },
+    { id:'profile/kyc', label:'Verify Now', url:URLS.kyc, badge:'!' },
+    { id:'profile/documents', label:'Documents', url:URLS.documents },
+    { id:'profile/agreements', label:'Agreements', url:URLS.agreements },
+    { id:'profile/messages', label:'Messages', url:URLS.messages },
+    { id:'profile/helpdesk', label:'Help Desk', url:URLS.helpdesk },
+    { id:'profile/2fa', label:'Two-Factor Auth', url:URLS.twofa },
+  ]},
+  { id:'downloads', label:'Downloads', icon:'M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4 M7 10l5 5 5-5 M12 15V3', url:URLS.downloads },
+  { id:'calendar', label:'Economic Calendar', icon:'M8 2v4 M16 2v4 M3 8h18 M3 6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6z', url:URLS.calendar },
+];
+
+/* ── SIDEBAR ─────────────────────────────────────────────────── */
+function Sidebar({ screen, setScreen, onLogout }) {
+  const [exp, setExp] = useState({accounts:true,funds:true,profile:true});
+  const toggle = id => setExp(p=>({...p,[id]:!p[id]}));
+  const isActive = id => screen===id||screen.startsWith(id+'/');
+
+  function handleItem(item) {
+    if(item.url) navigate(item.url);
+    else if(item.children) toggle(item.id);
+    else setScreen(item.id);
+  }
+  function handleChild(ch) {
+    if(ch.url) navigate(ch.url);
+    else setScreen(ch.id);
+  }
+
   return (
     <aside className="sidebar">
       <div className="sidebar-logo">
-        <div className="sidebar-logo-icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-        </div>
-        <div className="sidebar-logo-text">ANAX <em>CAPITAL</em></div>
+        <img src={LOGO} alt="ANAX Capital"/>
       </div>
       <div className="sidebar-user">
         <div className="sidebar-avatar">SS</div>
@@ -238,25 +409,23 @@ function Sidebar({ screen, setScreen }) {
         </div>
       </div>
       <div className="nav-section">
-        {NAV.map(item => (
+        {NAV.map(item=>(
           <div key={item.id}>
-            <div
-              className={`nav-item ${isActive(item.id) && !item.children ? 'active' : ''}`}
-              onClick={() => item.children ? toggle(item.id) : setScreen(item.id)}
-              style={item.children && isActive(item.id) ? {color:'var(--teal)'} : {}}
-            >
-              <Icon d={item.icon} />
+            <div className={`nav-item ${isActive(item.id)&&!item.children?'active':''}`}
+              onClick={()=>handleItem(item)}
+              style={item.children&&isActive(item.id)?{color:'var(--teal)'}:{}}>
+              <Icon d={item.icon}/>
               <span>{item.label}</span>
-              {item.children && (
+              {item.children&&(
                 <svg style={{marginLeft:'auto',transition:'200ms',transform:exp[item.id]?'rotate(90deg)':''}} width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>
               )}
             </div>
-            {item.children && exp[item.id] && (
+            {item.children&&exp[item.id]&&(
               <div className="nav-sub">
-                {item.children.map(ch => (
-                  <div key={ch.id} className={`nav-item ${screen===ch.id?'active':''}`} onClick={() => setScreen(ch.id)}>
+                {item.children.map(ch=>(
+                  <div key={ch.id} className={`nav-item ${screen===ch.id?'active':''}`} onClick={()=>handleChild(ch)}>
                     <span>{ch.label}</span>
-                    {ch.badge && <span style={{marginLeft:'auto',background:'rgba(245,158,11,.2)',color:'#F59E0B',fontSize:9,fontWeight:700,padding:'1px 5px',borderRadius:999}}>{ch.badge}</span>}
+                    {ch.badge&&<span className="nav-badge-warn">{ch.badge}</span>}
                   </div>
                 ))}
               </div>
@@ -264,31 +433,50 @@ function Sidebar({ screen, setScreen }) {
           </div>
         ))}
       </div>
+      <div className="sidebar-footer">
+        <div className="sidebar-footer-text">
+          Powered by <em>Anax Capital</em><br/>
+          Financial Markets LLC<br/>
+          SCA License No. 20200000258
+        </div>
+      </div>
     </aside>
   );
 }
 
-function Topbar({ screen, setScreen }) {
-  const title = SCREEN_TITLES[screen] || 'Dashboard';
+/* ── TOPBAR ──────────────────────────────────────────────────── */
+const SCREEN_TITLES = {
+  dashboard:'Dashboard','accounts/overview':'Accounts Overview',
+  'accounts/demo':'Open Demo Account','accounts/live':'Open Live Account',
+  'funds/deposit':'Deposit Funds','funds/withdraw':'Withdraw Funds',
+  'funds/transfer':'Transfer Funds','funds/history':'Transaction History',
+  'funds/wallets':'Payment Details','profile/info':'Profile',
+  'profile/documents':'Additional Documents','profile/kyc':'Verify Now',
+  'profile/agreements':'My Agreements','profile/messages':'Messages',
+  'profile/helpdesk':'Help Desk','profile/2fa':'Two-Factor Authentication',
+  downloads:'Downloads',calendar:'Economic Calendar',
+};
+
+function Topbar({ screen, onLogout }) {
   return (
     <div className="topbar">
       <div className="topbar-left">
-        <div className="topbar-title">{title}</div>
+        <div className="topbar-title">{SCREEN_TITLES[screen]||'Dashboard'}</div>
       </div>
       <div className="topbar-right">
-        <button className="topbar-btn tb-primary" onClick={() => setScreen('accounts/live')}>
+        <button className="topbar-btn tb-primary" onClick={()=>navigate(URLS.accountsLive)}>
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           Open Live Account
         </button>
-        <button className="topbar-btn tb-ghost" onClick={() => setScreen('funds/deposit')}>Deposit Funds</button>
-        <button className="topbar-btn tb-ghost" onClick={() => setScreen('accounts/demo')}>Demo Account</button>
-        <button className="tb-icon" onClick={() => setScreen('profile/messages')}>
+        <button className="topbar-btn tb-ghost" onClick={()=>navigate(URLS.deposit)}>Deposit Funds</button>
+        <button className="topbar-btn tb-ghost" onClick={()=>navigate(URLS.accountsDemo)}>Demo Account</button>
+        <button className="tb-icon" title="Messages" onClick={()=>navigate(URLS.messages)}>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         </button>
-        <button className="tb-icon" onClick={() => setScreen('profile/helpdesk')}>
+        <button className="tb-icon" title="Help Desk" onClick={()=>navigate(URLS.helpdesk)}>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
         </button>
-        <button className="tb-icon" style={{color:'var(--down)'}}>
+        <button className="tb-icon tb-logout" title="Logout" onClick={onLogout}>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
         </button>
       </div>
@@ -296,226 +484,154 @@ function Topbar({ screen, setScreen }) {
   );
 }
 
+/* ── STEPPER ─────────────────────────────────────────────────── */
 function Stepper({ steps, current }) {
   return (
     <div className="stepper">
-      {steps.map((s,i) => (
+      {steps.map((s,i)=>(
         <React.Fragment key={s}>
           <div className="stepper-step">
             <div className={`stepper-circle ${i<current?'sc-done':i===current?'sc-active':'sc-pending'}`}>
-              {i<current ? <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg> : i+1}
+              {i<current?<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>:i+1}
             </div>
             <span className={`stepper-label ${i===current?'active':''}`}>{s}</span>
           </div>
-          {i<steps.length-1 && <div className="stepper-line"/>}
+          {i<steps.length-1&&<div className="stepper-line"/>}
         </React.Fragment>
       ))}
     </div>
   );
 }
 
-function Dashboard({ setScreen }) {
-  const doneCount = STEPS.filter(s => s.status==='done').length;
-  const pct = Math.round((doneCount/STEPS.length)*100);
+/* ── DASHBOARD ───────────────────────────────────────────────── */
+const PAIRS = [
+  {s:'FX:EURUSD',l:'EUR/USD'},{s:'FX:GBPUSD',l:'GBP/USD'},{s:'FX:USDJPY',l:'USD/JPY'},
+  {s:'FX:USDCHF',l:'USD/CHF'},{s:'OANDA:XAUUSD',l:'Gold'},{s:'TVC:US500',l:'US500'},
+  {s:'TVC:USOIL',l:'WTI Oil'},{s:'NASDAQ:NDX',l:'NAS100'},
+];
+
+function Dashboard({ onFund }) {
+  const [sym, setSym] = useState('FX:EURUSD');
   return (
     <div>
       <div className="alert-banner alert-warn">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        Your profile has not been verified. Complete the steps below to unlock full trading access.
-        <span className="alert-link" onClick={() => setScreen('profile/kyc')} style={{marginLeft:6}}>Verify Now →</span>
+        Your profile has not been verified. Complete KYC to unlock full trading access.
+        <span className="alert-link" onClick={()=>navigate(URLS.kyc)}>Verify Now →</span>
       </div>
+
       <div style={{marginBottom:16}}>
         <div style={{fontFamily:'var(--fd)',fontSize:20,fontWeight:700,marginBottom:3}}>
-          Welcome, <span className="grad-text">Shubham</span> 👋
+          Welcome to <span className="grad-text">Anax Capital.</span>
         </div>
-        <div style={{fontSize:12,color:'var(--txt3)'}}>You're a few steps away from trading. Complete your onboarding below.</div>
+        <div style={{fontSize:12,color:'var(--txt3)'}}>Trade 500+ instruments — Forex, Gold, Oil, Indices, Crypto and more.</div>
       </div>
+
+      {/* STAT CARDS */}
       <div className="stat-grid">
-        <div className="stat-card">
-          <div className="stat-lbl">Onboarding Progress</div>
-          <div style={{display:'flex',alignItems:'baseline',gap:5,margin:'5px 0 7px'}}>
-            <span className="grad-text" style={{fontFamily:'var(--fd)',fontSize:26,fontWeight:700}}>{pct}%</span>
-            <span style={{fontSize:11,color:'var(--txt3)'}}>{doneCount}/{STEPS.length} steps</span>
-          </div>
-          <div className="progress-bar"><div className="progress-fill" style={{width:pct+'%'}}/></div>
-        </div>
         <div className="stat-card">
           <div className="stat-lbl">Account Balance</div>
           <div className="stat-val" style={{marginTop:5}}>—</div>
-          <div style={{fontSize:10,color:'var(--txt4)',marginTop:3}}>No accounts yet</div>
+          <div style={{fontSize:10,color:'var(--txt4)',marginTop:3}}>No accounts opened yet</div>
         </div>
         <div className="stat-card">
           <div className="stat-lbl">KYC Status</div>
           <div style={{marginTop:5}}><span className="badge badge-warn">Not Verified</span></div>
-          <div style={{fontSize:10,color:'var(--txt4)',marginTop:5}}>Required to trade</div>
+          <div style={{fontSize:10,color:'var(--txt4)',marginTop:5}}>Required before trading</div>
         </div>
         <div className="stat-card">
-          <div className="stat-lbl">Client ID</div>
-          <div className="stat-val font-mono" style={{fontSize:16,marginTop:5}}>#16909</div>
-          <div style={{fontSize:10,color:'var(--txt4)',marginTop:3}}>SCA Licensed Broker</div>
+          <div className="stat-lbl">Min. Deposit</div>
+          <div style={{marginTop:5,color:'var(--teal)',fontFamily:'var(--fm)',fontSize:18,fontWeight:700}}>00 USD</div>
+          <div style={{fontSize:10,color:'var(--txt4)',marginTop:3}}>Card · Wire · Crypto</div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-lbl">Max Leverage</div>
+          <div style={{marginTop:5,color:'var(--teal)',fontFamily:'var(--fm)',fontSize:18,fontWeight:700}}>1:500</div>
+          <div style={{fontSize:10,color:'var(--txt4)',marginTop:3}}>500+ Instruments · 24/5</div>
         </div>
       </div>
-      <div className="grid-2" style={{marginBottom:16}}>
-        <div className="card">
-          <div className="card-header">
-            <span className="card-title">Getting Started Checklist</span>
-            <span style={{fontSize:10,color:'var(--txt3)'}}>{doneCount}/{STEPS.length} complete</span>
-          </div>
-          <div className="step-list">
-            {STEPS.map(step => (
-              <div key={step.id} className={`step-item ${step.status==='current'?'active-step':''}`} onClick={() => step.screen && setScreen(step.screen)}>
-                <div className={`step-num ${step.status==='done'?'step-done':step.status==='current'?'step-current':'step-pending'}`}>
-                  {step.status==='done' ? <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg> : step.num}
-                </div>
-                <div className="step-content">
-                  <div className="step-title" style={{color:step.status==='pending'?'var(--txt3)':'var(--txt)'}}>{step.title}</div>
-                  <div className="step-desc">{step.desc}</div>
-                  {step.status==='current' && step.cta && (
-                    <div className="step-cta">
-                      <button className="btn btn-sm btn-primary" onClick={e => {e.stopPropagation();setScreen(step.screen)}}>{step.cta} →</button>
-                    </div>
-                  )}
-                </div>
-                {step.screen && <svg className="step-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6"/></svg>}
-              </div>
-            ))}
+
+      {/* MAIN ACTION CARDS */}
+      <div className="action-grid" style={{marginBottom:16}}>
+        {/* DEPOSIT HERO */}
+        <div className="action-card dep">
+          <div className="dep-lbl">Minimum Deposit</div>
+          <div className="dep-amt">00</div>
+          <div className="dep-sub">Instant processing · All major currencies</div>
+          <button className="dep-cta" onClick={()=>navigate(URLS.deposit)}>+ Fund Account</button>
+          <div className="dep-chips">
+            <div className="dep-chip">Credit Card</div>
+            <div className="dep-chip">Bank Wire</div>
+            <div className="dep-chip">Crypto</div>
+            <div className="dep-chip dim">Local Transfer</div>
+            <div className="dep-chip dim">E-wallet</div>
           </div>
         </div>
-        <div style={{display:'flex',flexDirection:'column',gap:12}}>
-          <div className="card card-p">
-            <div className="card-title" style={{marginBottom:12}}>Quick Actions</div>
-            <div style={{display:'flex',flexDirection:'column',gap:7}}>
-              <button className="btn btn-md btn-primary btn-full" onClick={() => setScreen('profile/kyc')}>
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                Verify Identity (KYC)
-              </button>
-              <button className="btn btn-md btn-teal btn-full" onClick={() => setScreen('accounts/live')}>Open Live Account</button>
-              <button className="btn btn-md btn-ghost btn-full" onClick={() => setScreen('funds/deposit')}>Deposit Funds</button>
-              <button className="btn btn-md btn-ghost btn-full" onClick={() => setScreen('accounts/demo')}>Try Demo Account</button>
-              <button className="btn btn-md btn-ghost btn-full" onClick={() => setScreen('downloads')}>Download MT5</button>
-            </div>
+        {/* WITHDRAW */}
+        <div className="action-card" onClick={()=>navigate(URLS.withdraw)}>
+          <div className="action-icon ic-with">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><line x1="11" y1="19" x2="11" y2="5" stroke="#7EC43A" strokeWidth="2" strokeLinecap="round"/><polyline points="6,10 11,5 16,10" stroke="#7EC43A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><line x1="4" y1="19" x2="18" y2="19" stroke="#7EC43A" strokeWidth="2" strokeLinecap="round"/></svg>
           </div>
-          <div className="card card-p" style={{flex:1}}>
-            <div className="card-title" style={{marginBottom:10}}>Account Info</div>
-            <div className="info-row"><span className="info-label">SCA License</span><span style={{color:'var(--teal)',fontSize:12,fontFamily:'var(--fm)'}}>No. 20200000258</span></div>
-            <div className="info-row"><span className="info-label">Jurisdiction</span><span className="info-value" style={{fontSize:12}}>Dubai, UAE</span></div>
-            <div className="info-row"><span className="info-label">Platforms</span><span style={{color:'var(--teal)',fontSize:12}}>MT4 &amp; MT5</span></div>
-            <div className="info-row"><span className="info-label">Min. Deposit</span><span style={{color:'var(--teal)',fontSize:12,fontFamily:'var(--fm)'}}>$100 USD</span></div>
-            <div className="info-row"><span className="info-label">Support</span><span className="info-value" style={{fontSize:12}}>24/5 · English &amp; Arabic</span></div>
-          </div>
+          <div className="action-title">Withdraw</div>
+          <div className="action-desc">Request a payout anytime. Funds processed securely to your account.</div>
+          <span className="action-btn ab-green">Request Withdrawal</span>
         </div>
+        {/* DOWNLOAD */}
+        <div className="action-card" onClick={()=>navigate(URLS.downloads)}>
+          <div className="action-icon ic-dl">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 3v13" stroke="#378ADD" strokeWidth="2" strokeLinecap="round"/><polyline points="7,12 11,16 15,12" stroke="#378ADD" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><line x1="4" y1="19" x2="18" y2="19" stroke="#378ADD" strokeWidth="2" strokeLinecap="round"/></svg>
+          </div>
+          <div className="action-title">Download MT5</div>
+          <div className="action-desc">MetaTrader 5 for desktop, iOS and Android. Log in and start trading.</div>
+          <span className="action-btn ab-blue">Download Platform</span>
+        </div>
+        {/* KYC */}
+        <div className="action-card" onClick={()=>navigate(URLS.kyc)}>
+          <div className="action-icon ic-kyc">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 2a5 5 0 1 0 0 10 5 5 0 0 0 0-10z" stroke="#F59E0B" strokeWidth="1.5"/><path d="M3 20c0-4.42 3.58-8 8-8s8 3.58 8 8" stroke="#F59E0B" strokeWidth="1.5" strokeLinecap="round"/><path d="M15 9l1.5 1.5L19 8" stroke="#F59E0B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          </div>
+          <div className="action-title">Verify Identity</div>
+          <div className="action-desc">Complete KYC to unlock deposits and live trading. Takes 2 minutes.</div>
+          <span className="action-btn ab-amber">Verify Now</span>
+        </div>
+      </div>
+
+      {/* LIVE CHART */}
+      <div className="card">
+        <div className="card-header">
+          <span className="card-title">Live Markets</span>
+          <span style={{fontSize:10,color:'var(--teal)',display:'flex',alignItems:'center',gap:4}}>
+            <span style={{width:6,height:6,borderRadius:'50%',background:'var(--up)',display:'inline-block'}}></span>
+            Live · Click chart to fund your account
+          </span>
+        </div>
+        <div className="pair-pills">
+          {PAIRS.map(p=>(
+            <button key={p.s} className={`pair-pill ${sym===p.s?'active':''}`} onClick={()=>setSym(p.s)}>{p.l}</button>
+          ))}
+        </div>
+        <TVChart symbol={sym} height={380} onBlockedClick={onFund}/>
       </div>
     </div>
   );
 }
 
-function AccountOverview({ setScreen }) {
-  return (
-    <div>
-      <div className="empty">
-        <svg className="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
-        <div className="empty-title">No Trading Accounts Yet</div>
-        <div className="empty-desc" style={{marginBottom:16}}>Open a live or demo account to start trading on MT5.</div>
-        <div style={{display:'flex',gap:8,justifyContent:'center'}}>
-          <button className="btn btn-md btn-primary" onClick={() => setScreen('accounts/live')}>Open Live Account</button>
-          <button className="btn btn-md btn-ghost" onClick={() => setScreen('accounts/demo')}>Open Demo Account</button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function OpenAccount({ type }) {
-  const [step, setStep] = useState(0);
-  const [acctType, setAcctType] = useState('');
-  const steps = ['Select Account Type','Confirmation'];
-  return (
-    <div className="card card-p" style={{maxWidth:520,margin:'0 auto'}}>
-      <Stepper steps={steps} current={step}/>
-      {step===0 && (
-        <>
-          <div className="field"><div className="field-label">Account Type</div>
-            <select className="select" value={acctType} onChange={e => setAcctType(e.target.value)}>
-              <option value="">Select…</option><option>Prime — Retail</option><option>Pro — Active Trader</option><option>Elite — Institutional</option>
-            </select>
-          </div>
-          <div className="field"><div className="field-label">Base Currency</div>
-            <select className="select"><option>USD — US Dollar</option><option>AED — UAE Dirham</option><option>EUR — Euro</option></select>
-          </div>
-          <div className="field"><div className="field-label">Leverage</div>
-            <select className="select"><option>1:100</option><option>1:200</option><option>1:400 — Eligible clients only</option></select>
-          </div>
-          <button className="btn btn-md btn-primary" disabled={!acctType} onClick={() => setStep(1)} style={{opacity:acctType?1:.5}}>Continue →</button>
-        </>
-      )}
-      {step===1 && (
-        <>
-          <div style={{background:'var(--surface-r)',border:'1px solid var(--border)',borderRadius:8,padding:14,marginBottom:16}}>
-            <div className="info-row"><span className="info-label">Account Type</span><span className="info-value">{acctType||'Prime'}</span></div>
-            <div className="info-row"><span className="info-label">Currency</span><span className="info-value">USD</span></div>
-            <div className="info-row"><span className="info-label">Leverage</span><span className="info-value">1:100</span></div>
-            <div className="info-row"><span className="info-label">Platform</span><span className="info-value">MetaTrader 5</span></div>
-          </div>
-          <div style={{display:'flex',gap:8}}>
-            <button className="btn btn-md btn-ghost" onClick={() => setStep(0)}>← Back</button>
-            <button className="btn btn-md btn-primary" style={{flex:1,justifyContent:'center'}} onClick={() => setStep(2)}>Confirm &amp; Create Account</button>
-          </div>
-        </>
-      )}
-      {step===2 && (
-        <div style={{textAlign:'center',padding:'20px 0'}}>
-          <div style={{width:52,height:52,borderRadius:'50%',background:'rgba(16,185,129,.12)',border:'1px solid rgba(16,185,129,.3)',display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 14px'}}>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2"><polyline points="20 6 9 17 4 12"/></svg>
-          </div>
-          <div style={{fontFamily:'var(--fd)',fontSize:17,fontWeight:700,marginBottom:5}}>Account Created!</div>
-          <div style={{fontSize:12,color:'var(--txt3)'}}>Your MT5 trading account has been set up. Check your email for login credentials.</div>
-        </div>
-      )}
-    </div>
-  );
-}
-
+/* ── INNER SCREENS (deposit, withdraw etc handled by redirect) ─ */
 function DepositFunds() {
   const [step, setStep] = useState(0);
   return (
     <div className="card card-p" style={{maxWidth:520,margin:'0 auto'}}>
       <Stepper steps={['Initial Information','Transfer Details','Confirmation']} current={step}/>
-      {step===0 && (
-        <>
-          <div className="alert-banner alert-warn" style={{marginBottom:14}}>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            KYC verification required before depositing funds.
-          </div>
-          <div className="field"><div className="field-label">Deposit to Account</div><select className="select"><option>Select a trading account…</option></select></div>
-          <div className="field"><div className="field-label">Payment Method</div><select className="select"><option>Bank Transfer (Wire)</option><option>Credit / Debit Card</option><option>Crypto</option></select></div>
-          <div className="field"><div className="field-label">Amount (USD)</div><input className="input" placeholder="e.g. 1000" type="number"/></div>
-          <button className="btn btn-md btn-primary btn-full" onClick={() => setStep(1)}>Continue →</button>
-        </>
-      )}
-      {step===1 && (
-        <>
-          <div style={{background:'var(--surface-r)',border:'1px solid var(--border)',borderRadius:8,padding:14,marginBottom:14}}>
-            <div style={{fontSize:11,color:'var(--txt3)',marginBottom:8}}>Please transfer to the following bank details:</div>
-            <div className="info-row"><span className="info-label">Bank Name</span><span className="info-value font-mono" style={{fontSize:12}}>Emirates NBD</span></div>
-            <div className="info-row"><span className="info-label">Account Name</span><span className="info-value font-mono" style={{fontSize:12}}>ANAX Capital FM LLC</span></div>
-            <div className="info-row"><span className="info-label">IBAN</span><span className="info-value font-mono" style={{fontSize:12}}>AE07 0331 2345 6789 0123 456</span></div>
-            <div className="info-row"><span className="info-label">Reference</span><span className="font-mono" style={{fontSize:12,color:'var(--teal)'}}>#16909</span></div>
-          </div>
-          <div style={{display:'flex',gap:8}}>
-            <button className="btn btn-md btn-ghost" onClick={() => setStep(0)}>← Back</button>
-            <button className="btn btn-md btn-primary" style={{flex:1,justifyContent:'center'}} onClick={() => setStep(2)}>I Have Transferred →</button>
-          </div>
-        </>
-      )}
-      {step===2 && (
-        <div style={{textAlign:'center',padding:'20px 0'}}>
-          <div style={{width:52,height:52,borderRadius:'50%',background:'rgba(245,158,11,.12)',border:'1px solid rgba(245,158,11,.3)',display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 12px'}}>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          </div>
-          <div style={{fontFamily:'var(--fd)',fontSize:17,fontWeight:700,marginBottom:5}}>Transfer Submitted</div>
-          <div style={{fontSize:12,color:'var(--txt3)'}}>Your deposit request has been recorded. Processing takes up to 24 hours.</div>
+      {step===0&&(<>
+        <div className="alert-banner alert-warn" style={{marginBottom:14}}>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          KYC verification required before depositing funds.
         </div>
-      )}
+        <div className="field"><div className="field-label">Deposit to Account</div><select className="select"><option>Select a trading account…</option></select></div>
+        <div className="field"><div className="field-label">Payment Method</div><select className="select"><option>Bank Transfer (Wire)</option><option>Credit / Debit Card</option><option>Crypto</option></select></div>
+        <div className="field"><div className="field-label">Amount (USD)</div><input className="input" placeholder="Minimum 00" type="number"/></div>
+        <button className="btn btn-primary btn-full btn-md" onClick={()=>navigate(URLS.deposit)}>Continue on Portal →</button>
+      </>)}
     </div>
   );
 }
@@ -524,11 +640,11 @@ function WithdrawFunds() {
   return (
     <div className="card card-p" style={{maxWidth:520,margin:'0 auto'}}>
       <Stepper steps={['Initial Information','Transfer Details','Confirmation']} current={0}/>
-      <div className="alert-banner alert-warn" style={{marginBottom:14}}>KYC verification is required before withdrawals can be processed.</div>
+      <div className="alert-banner alert-warn" style={{marginBottom:14}}>KYC verification is required before withdrawals.</div>
       <div className="field"><div className="field-label">Withdraw From</div><select className="select"><option>Select an account…</option></select></div>
       <div className="field"><div className="field-label">Withdrawal Method</div><select className="select"><option>Bank Transfer (Wire)</option></select></div>
       <div className="field"><div className="field-label">Amount (USD)</div><input className="input" placeholder="Enter amount" type="number"/></div>
-      <button className="btn btn-md btn-primary">Continue →</button>
+      <button className="btn btn-primary btn-full btn-md" onClick={()=>navigate(URLS.withdraw)}>Continue on Portal →</button>
     </div>
   );
 }
@@ -540,48 +656,44 @@ function TransferFunds() {
       <div className="field"><div className="field-label">Transfer From</div><select className="select"><option>Select…</option></select></div>
       <div className="field"><div className="field-label">Transfer To</div><select className="select"><option>Select…</option></select></div>
       <div className="field"><div className="field-label">Amount</div><input className="input" placeholder="Enter amount" type="number"/></div>
-      <button className="btn btn-md btn-primary">Continue →</button>
+      <button className="btn btn-primary btn-full btn-md" onClick={()=>navigate(URLS.transfer)}>Continue on Portal →</button>
     </div>
   );
 }
 
 function TransactionHistory() {
-  const [tab, setTab] = useState('transactions');
+  const [tab, setTab] = useState('history');
+  const tabs = [
+    {id:'pending',label:'Pending Transactions',url:URLS.txPending},
+    {id:'history',label:'Transactions History',url:URLS.txHistory},
+    {id:'transfers',label:'Transfers History',url:URLS.txTransfers},
+  ];
   return (
     <div>
       <div className="tabs">
-        <div className={`tab ${tab==='pending'?'active':''}`} onClick={() => setTab('pending')}>Pending Transactions</div>
-        <div className={`tab ${tab==='transactions'?'active':''}`} onClick={() => setTab('transactions')}>Transactions History</div>
-        <div className={`tab ${tab==='transfers'?'active':''}`} onClick={() => setTab('transfers')}>Transfers History</div>
+        {tabs.map(t=><div key={t.id} className={`tab ${tab===t.id?'active':''}`} onClick={()=>{setTab(t.id);navigate(t.url)}}>{t.label}</div>)}
       </div>
-      <div className="card"><div className="empty"><div className="empty-title">No Records Found</div><div className="empty-desc">Your transaction history will appear here.</div></div></div>
+      <div className="card">
+        <div className="card-header">
+          <span className="card-title">Transaction History</span>
+          <button className="btn btn-sm btn-ghost" onClick={()=>navigate(URLS.txHistory)}>View on Portal →</button>
+        </div>
+        <div className="empty"><div className="empty-title">Redirecting to portal…</div><div className="empty-desc">Full transaction history with filters and CSV export available on the portal.</div></div>
+      </div>
     </div>
   );
 }
 
-function ProfileInfo() {
+function AccountOverview() {
   return (
-    <div className="grid-2">
-      <div className="card card-p">
-        <div className="card-title" style={{marginBottom:14}}>Profile Information</div>
-        {[['First Name','Shubham'],['Last Name','Shukla'],['Client ID','#16909'],['Date of Birth','02-01-1994'],['Email','shubham@anaxcapital.ae'],['Mobile','+971 50 240 5139'],['Language','English'],['2FA','Disabled']].map(([l,v]) => (
-          <div key={l} className="info-row">
-            <span className="info-label">{l}</span>
-            <span className="info-value font-mono" style={{fontSize:12}}>{v}</span>
-            {['Email','Mobile'].includes(l) && <button className="btn btn-sm btn-ghost info-action">Change</button>}
-          </div>
-        ))}
-      </div>
-      <div className="card card-p" style={{border:'1px solid rgba(239,68,68,.3)',background:'rgba(239,68,68,.04)'}}>
-        <div style={{display:'flex',gap:8,alignItems:'center',marginBottom:12}}>
-          <span className="badge badge-error" style={{fontSize:11,padding:'3px 9px'}}>Not Verified</span>
-        </div>
-        <div style={{fontSize:12,color:'var(--txt2)',marginBottom:12,lineHeight:1.6}}>
-          Your profile is not yet verified. Complete KYC to enable deposits, withdrawals, and live trading.
-        </div>
-        <div className="info-row" style={{borderBottom:'none'}}>
-          <span style={{fontSize:12,color:'var(--txt2)'}}>Profile KYC</span>
-          <span className="badge badge-error" style={{marginLeft:'auto'}}>No</span>
+    <div>
+      <div className="empty" style={{padding:'60px 20px'}}>
+        <svg style={{width:44,height:44,margin:'0 auto 12px',opacity:.3}} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+        <div className="empty-title">No Trading Accounts Yet</div>
+        <div className="empty-desc" style={{marginBottom:20}}>Open a live or demo account to start trading on MT5.</div>
+        <div style={{display:'flex',gap:8,justifyContent:'center'}}>
+          <button className="btn btn-md btn-primary" onClick={()=>navigate(URLS.accountsLive)}>Open Live Account</button>
+          <button className="btn btn-md btn-ghost" onClick={()=>navigate(URLS.accountsDemo)}>Open Demo Account</button>
         </div>
       </div>
     </div>
@@ -592,17 +704,16 @@ function KYCScreen() {
   return (
     <div>
       <div className="alert-banner alert-warn" style={{marginBottom:16}}>
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        Identity verification is required to unlock deposits, withdrawals, and live trading.
+        Identity verification required to unlock deposits, withdrawals, and live trading.
       </div>
       <div className="grid-2" style={{marginBottom:16}}>
         {[
-          {color:'#3563DF',title:"What you'll need",items:['Valid passport or Emirates ID','Proof of address (utility bill, bank statement)','Selfie / liveness check','Source of funds declaration']},
-          {color:'#44D0C4',title:'What to expect',items:['Verification powered by Sumsub','Takes approximately 5–10 minutes','Result usually within 24 hours',"You'll be notified by email"]},
-        ].map(card => (
-          <div key={card.title} className="card card-p">
-            <div className="card-title" style={{marginBottom:10,color:card.color}}>{card.title}</div>
-            {card.items.map(item => (
+          {color:'var(--blue)',title:"What you'll need",items:['Valid passport or Emirates ID','Proof of address (utility bill / bank statement)','Selfie / liveness check','Source of funds declaration']},
+          {color:'var(--teal)',title:'What to expect',items:['Powered by Sumsub','Takes approximately 5–10 minutes','Result usually within 24 hours',"You'll be notified by email"]},
+        ].map(c=>(
+          <div key={c.title} className="card card-p">
+            <div className="card-title" style={{marginBottom:10,color:c.color}}>{c.title}</div>
+            {c.items.map(item=>(
               <div key={item} style={{display:'flex',gap:7,alignItems:'flex-start',marginBottom:7}}>
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" strokeWidth="2" style={{marginTop:2,flexShrink:0}}><polyline points="20 6 9 17 4 12"/></svg>
                 <span style={{fontSize:12,color:'var(--txt2)'}}>{item}</span>
@@ -615,15 +726,45 @@ function KYCScreen() {
         <div style={{width:60,height:60,borderRadius:14,background:'var(--surface-r)',border:'1px solid var(--border)',display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 14px'}}>
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" strokeWidth="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </div>
-        <div style={{fontFamily:'var(--fd)',fontSize:17,fontWeight:700,marginBottom:5}}>Verify Your Identity</div>
+        <div style={{fontFamily:'var(--fd)',fontSize:17,fontWeight:700,marginBottom:6}}>Verify Your Identity</div>
         <div style={{fontSize:12,color:'var(--txt3)',marginBottom:18,lineHeight:1.6}}>
-          Verification for Anax Capital Financial Markets LLC.<br/>Powered by Sumsub — secure, encrypted, SCA compliant.
+          Powered by Sumsub — secure, encrypted, SCA compliant.<br/>Anax Capital Financial Markets LLC.
         </div>
-        <button className="btn btn-lg btn-primary btn-full">
+        <button className="btn btn-lg btn-primary btn-full" onClick={()=>navigate(URLS.kyc)}>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           Start Verification Now
         </button>
         <div style={{fontSize:10,color:'var(--txt4)',marginTop:8}}>By continuing you agree to submit identity data for verification purposes.</div>
+      </div>
+    </div>
+  );
+}
+
+function ProfileInfo() {
+  return (
+    <div className="grid-2">
+      <div className="card card-p">
+        <div className="card-title" style={{marginBottom:14}}>Profile Information</div>
+        {[['First Name','Shubham'],['Last Name','Shukla'],['Client ID','#16909'],['Email','shubham@anaxcapital.ae'],['Mobile','+971 50 240 5139'],['Language','English'],['2FA','Disabled']].map(([l,v])=>(
+          <div key={l} className="info-row">
+            <span className="info-label">{l}</span>
+            <span className="info-value font-mono" style={{fontSize:12}}>{v}</span>
+            {['Email','Mobile'].includes(l)&&<button className="btn btn-sm btn-ghost info-action" onClick={()=>navigate(URLS.profile)}>Change</button>}
+          </div>
+        ))}
+        <div style={{marginTop:14}}><button className="btn btn-md btn-ghost btn-full" onClick={()=>navigate(URLS.profile)}>Edit on Portal →</button></div>
+      </div>
+      <div className="card card-p" style={{border:'1px solid rgba(239,68,68,.3)',background:'rgba(239,68,68,.04)'}}>
+        <div style={{display:'flex',gap:8,alignItems:'center',marginBottom:12}}>
+          <span className="badge badge-error" style={{fontSize:11,padding:'3px 9px'}}>Not Verified</span>
+        </div>
+        <div style={{fontSize:12,color:'var(--txt2)',marginBottom:14,lineHeight:1.6}}>
+          Your profile is not yet verified. Complete KYC to enable deposits, withdrawals, and live trading.
+        </div>
+        <button className="btn btn-md btn-primary btn-full" onClick={()=>navigate(URLS.kyc)}>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Start KYC Verification
+        </button>
       </div>
     </div>
   );
@@ -636,7 +777,7 @@ function AdditionalDocs() {
         <div className="card-title" style={{marginBottom:14}}>Upload New Document</div>
         <div className="field"><div className="field-label">Document Type</div><select className="select"><option>Select…</option><option>Passport</option><option>Emirates ID</option><option>Utility Bill</option><option>Bank Statement</option></select></div>
         <div className="upload-drop"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--txt4)" strokeWidth="1.5" style={{marginBottom:7}}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><div style={{fontSize:12,color:'var(--txt3)'}}>Drag & drop or click to upload</div><div style={{fontSize:10,color:'var(--txt4)',marginTop:3}}>PNG, JPG, PDF up to 10MB</div></div>
-        <button className="btn btn-md btn-primary btn-full" style={{marginTop:10}}>Upload Document</button>
+        <button className="btn btn-md btn-primary btn-full" style={{marginTop:10}} onClick={()=>navigate(URLS.documents)}>Upload on Portal →</button>
       </div>
       <div className="card card-p">
         <div className="card-title" style={{marginBottom:14}}>Uploaded Documents</div>
@@ -651,8 +792,8 @@ function Agreements() {
   return (
     <div className="card card-p">
       <div className="card-title" style={{marginBottom:14}}>My Agreements</div>
-      {docs.map(d => (
-        <div key={d} style={{display:'flex',alignItems:'center',gap:8,padding:'8px 0',borderBottom:'1px solid rgba(255,255,255,.04)',cursor:'pointer'}}>
+      {docs.map(d=>(
+        <div key={d} style={{display:'flex',alignItems:'center',gap:8,padding:'8px 0',borderBottom:'1px solid rgba(255,255,255,.04)',cursor:'pointer'}} onClick={()=>navigate(URLS.agreements)}>
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--txt4)" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
           <span style={{fontSize:12,color:'var(--teal)',textDecoration:'underline'}}>{d}</span>
           <span className="badge badge-success" style={{marginLeft:'auto'}}>Accepted</span>
@@ -663,17 +804,14 @@ function Agreements() {
 }
 
 function Messages() {
-  return <div className="card"><div className="card-header"><span className="card-title">Messages</span><span style={{fontSize:11,color:'var(--txt3)'}}>0 records</span></div><div className="empty"><div className="empty-title">No Messages</div><div className="empty-desc">Messages from ANAX Capital will appear here.</div></div></div>;
+  return <div className="card"><div className="card-header"><span className="card-title">Messages</span><button className="btn btn-sm btn-ghost" onClick={()=>navigate(URLS.messages)}>Open in Portal →</button></div><div className="empty"><div className="empty-title">No Messages</div><div className="empty-desc">Messages from ANAX Capital will appear here.</div></div></div>;
 }
 
 function HelpDesk() {
   return (
     <div className="card">
-      <div className="card-header"><span className="card-title">Help Desk</span><button className="btn btn-sm btn-primary">+ New Ticket</button></div>
-      <div className="tabs" style={{padding:'0 18px',marginBottom:0}}>
-        <div className="tab active">Open Tickets</div>
-        <div className="tab">Closed Tickets</div>
-      </div>
+      <div className="card-header"><span className="card-title">Help Desk</span><button className="btn btn-sm btn-primary" onClick={()=>navigate(URLS.helpdesk)}>+ New Ticket</button></div>
+      <div className="tabs" style={{padding:'0 18px',marginBottom:0}}><div className="tab active">Open Tickets</div><div className="tab">Closed Tickets</div></div>
       <div className="empty"><div className="empty-title">No Open Tickets</div><div className="empty-desc">Need help? Create a new support ticket above.</div></div>
     </div>
   );
@@ -684,7 +822,7 @@ function TwoFA() {
     <div className="card card-p" style={{maxWidth:440}}>
       <div className="card-title" style={{marginBottom:7}}>Two-Factor Authentication</div>
       <div style={{fontSize:12,color:'var(--txt3)',marginBottom:14}}>Two-factor authentication is not currently enabled on your account.</div>
-      <button className="btn btn-md btn-teal btn-full">
+      <button className="btn btn-md btn-teal btn-full" onClick={()=>navigate(URLS.twofa)}>
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         Enable via Google Authenticator
       </button>
@@ -700,49 +838,16 @@ function Downloads() {
     {name:'Web Trader',sub:'Browser — no download',icon:<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>},
   ];
   return (
-    <div className="dl-grid">
-      {platforms.map(p => (
-        <div key={p.name} className="dl-card">
-          <div className="dl-icon">{p.icon}</div>
-          <div>
-            <div style={{fontFamily:'var(--fd)',fontWeight:600,fontSize:14,marginBottom:2}}>{p.name}</div>
-            <div style={{fontSize:11,color:'var(--txt3)'}}>{p.sub}</div>
-          </div>
-          <button className="btn btn-sm btn-primary">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download
-          </button>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function EconomicCalendar() {
-  const events = [
-    {time:'08:30',cur:'USD',event:'Initial Jobless Claims',actual:'215K',forecast:'220K',prev:'218K',impact:'high'},
-    {time:'10:00',cur:'EUR',event:'ECB Vice President Speech',actual:'—',forecast:'—',prev:'—',impact:'medium'},
-    {time:'14:00',cur:'USD',event:'Existing Home Sales',actual:'3.98M',forecast:'4.01M',prev:'4.13M',impact:'medium'},
-    {time:'16:30',cur:'CAD',event:'Building Permits m/m',actual:'−8.5%',forecast:'−3.9%',prev:'3.5%',impact:'low'},
-    {time:'18:00',cur:'JPY',event:'BoJ M2 Money Stock y/y',actual:'2.0%',forecast:'1.9%',prev:'1.7%',impact:'low'},
-  ];
-  const impColor = {high:'var(--down)',medium:'var(--warn)',low:'var(--up)'};
-  return (
-    <div className="card">
-      <div className="card-header"><span className="card-title">Economic Calendar</span><span style={{fontSize:10,color:'var(--txt3)'}}>19 Apr 2026 · GMT+4</span></div>
-      <div style={{padding:'0 18px 18px'}}>
-        <div style={{display:'grid',gridTemplateColumns:'55px 45px 1fr 70px 70px 70px 8px',gap:8,padding:'7px 0',borderBottom:'1px solid var(--border)',fontSize:10,color:'var(--txt4)',textTransform:'uppercase',letterSpacing:'.05em'}}>
-          <span>Time</span><span>Cur</span><span>Event</span><span style={{textAlign:'right'}}>Actual</span><span style={{textAlign:'right'}}>Forecast</span><span style={{textAlign:'right'}}>Previous</span><span></span>
-        </div>
-        {events.map((ev,i) => (
-          <div key={i} style={{display:'grid',gridTemplateColumns:'55px 45px 1fr 70px 70px 70px 8px',gap:8,alignItems:'center',padding:'9px 0',borderBottom:'1px solid rgba(255,255,255,.03)',fontSize:12}}>
-            <span className="font-mono" style={{color:'var(--txt3)',fontSize:11}}>{ev.time}</span>
-            <span className="badge badge-neutral" style={{fontSize:10}}>{ev.cur}</span>
-            <span style={{color:'var(--txt)',fontWeight:500}}>{ev.event}</span>
-            <span className="font-mono" style={{textAlign:'right',fontSize:11,color:ev.actual!=='—'?'var(--up)':'var(--txt4)'}}>{ev.actual}</span>
-            <span className="font-mono" style={{textAlign:'right',fontSize:11,color:'var(--txt3)'}}>{ev.forecast}</span>
-            <span className="font-mono" style={{textAlign:'right',fontSize:11,color:'var(--txt4)'}}>{ev.prev}</span>
-            <div style={{width:6,height:6,borderRadius:'50%',background:impColor[ev.impact]}}></div>
+    <div>
+      <div className="dl-grid">
+        {platforms.map(p=>(
+          <div key={p.name} className="dl-card" onClick={()=>navigate(URLS.downloads)}>
+            <div className="dl-icon">{p.icon}</div>
+            <div><div style={{fontFamily:'var(--fd)',fontWeight:600,fontSize:14,marginBottom:2}}>{p.name}</div><div style={{fontSize:11,color:'var(--txt3)'}}>{p.sub}</div></div>
+            <button className="btn btn-sm btn-primary" onClick={e=>{e.stopPropagation();navigate(URLS.downloads)}}>
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download
+            </button>
           </div>
         ))}
       </div>
@@ -750,38 +855,89 @@ function EconomicCalendar() {
   );
 }
 
-function ScreenContent({ screen, setScreen }) {
+function EconomicCalendar() {
+  return (
+    <div className="card" style={{overflow:'hidden'}}>
+      <div className="card-header">
+        <span className="card-title">Economic Calendar</span>
+        <button className="btn btn-sm btn-ghost" onClick={()=>navigate(URLS.calendar)}>Open Full Calendar →</button>
+      </div>
+      <div style={{padding:20,textAlign:'center'}}>
+        <div style={{fontSize:13,color:'var(--txt3)',marginBottom:16}}>View the full economic calendar with filters on the portal.</div>
+        <button className="btn btn-md btn-primary" onClick={()=>navigate(URLS.calendar)}>Open Economic Calendar</button>
+      </div>
+    </div>
+  );
+}
+
+/* ── REDIRECT ────────────────────────────────────────────────── */
+function Redirect({ url }) {
+  useEffect(()=>{window.top.location.href=url;},[]);
+  return (
+    <div className="redirect-screen">
+      <div className="redirect-spinner"></div>
+      <div style={{fontSize:13,color:'var(--txt3)'}}>Redirecting...</div>
+    </div>
+  );
+}
+
+/* ── SCREEN ROUTER ───────────────────────────────────────────── */
+function ScreenContent({ screen, onFund }) {
   switch(screen) {
-    case 'dashboard': return <Dashboard setScreen={setScreen}/>;
-    case 'accounts/overview': return <AccountOverview setScreen={setScreen}/>;
-    case 'accounts/demo': return <OpenAccount type="demo"/>;
-    case 'accounts/live': return <OpenAccount type="live"/>;
-    case 'funds/deposit': return <DepositFunds/>;
-    case 'funds/withdraw': return <WithdrawFunds/>;
-    case 'funds/transfer': return <TransferFunds/>;
-    case 'funds/history': return <TransactionHistory/>;
-    case 'profile/info': return <ProfileInfo/>;
-    case 'profile/kyc': return <KYCScreen/>;
-    case 'profile/documents': return <AdditionalDocs/>;
-    case 'profile/agreements': return <Agreements/>;
-    case 'profile/messages': return <Messages/>;
-    case 'profile/helpdesk': return <HelpDesk/>;
-    case 'profile/2fa': return <TwoFA/>;
-    case 'downloads': return <Downloads/>;
-    case 'calendar': return <EconomicCalendar/>;
-    default: return <Dashboard setScreen={setScreen}/>;
+    case 'dashboard':           return <Dashboard onFund={onFund}/>;
+    case 'accounts/overview':   return <AccountOverview/>;
+    case 'accounts/demo':       return <Redirect url={URLS.accountsDemo}/>;
+    case 'accounts/live':       return <Redirect url={URLS.accountsLive}/>;
+    case 'funds/deposit':       return <DepositFunds/>;
+    case 'funds/withdraw':      return <WithdrawFunds/>;
+    case 'funds/transfer':      return <TransferFunds/>;
+    case 'funds/history':       return <TransactionHistory/>;
+    case 'funds/wallets':       return <Redirect url={URLS.wallets}/>;
+    case 'profile/info':        return <ProfileInfo/>;
+    case 'profile/kyc':         return <KYCScreen/>;
+    case 'profile/documents':   return <AdditionalDocs/>;
+    case 'profile/agreements':  return <Agreements/>;
+    case 'profile/messages':    return <Messages/>;
+    case 'profile/helpdesk':    return <HelpDesk/>;
+    case 'profile/2fa':         return <TwoFA/>;
+    case 'downloads':           return <Downloads/>;
+    case 'calendar':            return <EconomicCalendar/>;
+    default:                    return <Dashboard onFund={onFund}/>;
   }
 }
 
+/* ── APP ─────────────────────────────────────────────────────── */
 function App() {
   const [screen, setScreen] = useState('dashboard');
+  const [showFund, setShowFund] = useState(false);
+  const [showLogout, setShowLogout] = useState(false);
+
+  useEffect(()=>{
+    // Block ALL external navigation globally
+    const origOpen = window.open.bind(window);
+    window.open = function(url,...args){
+      if(url&&(url.includes('tradingview.com')||url.startsWith('http'))) return null;
+      return origOpen(url,...args);
+    };
+    document.addEventListener('click',function(e){
+      const a = e.target.closest('a[href]');
+      if(!a) return;
+      const href = a.getAttribute('href');
+      if(href&&href.startsWith('http')&&!href.includes('portal.anaxcapital.ae')){
+        e.preventDefault();e.stopPropagation();
+      }
+    },true);
+  },[]);
+
   return (
     <div className="portal">
-      <Sidebar screen={screen} setScreen={setScreen}/>
+      {showFund&&<FundPopup onClose={()=>setShowFund(false)}/>}
+      {showLogout&&<LogoutPopup onClose={()=>setShowLogout(false)}/>}
+      <Sidebar screen={screen} setScreen={setScreen} onLogout={()=>setShowLogout(true)}/>
       <div className="main">
-        <Topbar screen={screen} setScreen={setScreen}/>
+        <Topbar screen={screen} onLogout={()=>setShowLogout(true)}/>
         <div className="content">
-          <ScreenContent screen={screen} setScreen={setScreen}/>
+          <ScreenContent screen={screen} onFund={()=>setShowFund(true)}/>
         </div>
       </div>
     </div>
